@@ -1,0 +1,37 @@
+{
+    "actionButtons": {
+        "defaultColor": "#ff0034",
+        "loadNpmCommands": false,
+        "commands": [
+            {
+                "cwd": "${workspaceFolder}",
+                "name": "Publish",
+                "color": "white",
+                "singleInstance": true,
+                "command": "./publish.sh && exit",
+            },
+            {
+                "cwd": "${workspaceFolder}",
+                "name": "Publish (Skip webapp build)",
+                "color": "white",
+                "singleInstance": true,
+                "command": "./publish.sh -s && exit",
+            },
+            {
+                "cwd": "${workspaceFolder}",
+                "name": "Upload ENV",
+                "color": "white",
+                "singleInstance": true,
+                "command": "./upload-env.sh && exit",
+            },
+            {
+                "cwd": "${workspaceFolder}",
+                "name": "Upload Shell Script",
+                "color": "white",
+                "singleInstance": true,
+                "command": "./upload-shscript.sh && exit",
+            },
+        ]
+    },
+    "typescript.tsdk": "node_modules/typescript/lib"
+}

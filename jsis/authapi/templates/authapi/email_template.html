@@ -1,0 +1,6 @@
+<div>
+    <h1>부산중앙고등학교 재학생인트라넷서비스 회원가입 인증 메일</h1>
+    <p>아래 링크를 클릭하여 회원가입을 완료해주세요.</p>
+    <p>절대 다른 사람에게 공유하지 마세요.</p>
+    <a href="{{ server_domain }}{% url 'authapi:validate_email' uid=uid token=token %}">{{ server_domain }}{% url 'authapi:validate_email' uid=uid token=token %}</a>
+</div>

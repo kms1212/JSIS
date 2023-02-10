@@ -1,0 +1,4 @@
+tqdm==4.64.0
+colorama==0.4.6
+pyfiglet==0.8.post1
+django==4.1.3
