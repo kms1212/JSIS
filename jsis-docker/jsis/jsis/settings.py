@@ -15,7 +15,7 @@ import os
 
 SERVER_DOMAIN = os.environ.get('SERVER_DOMAIN', '')
 
-ROOT_URL = os.environ.get('ROOT_URL', '')
+ROOT_URL = '/api/'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -116,7 +116,7 @@ DATABASES = {
         'NAME': 'jsis',
         'USER': os.environ.get('DATABASE_USER', ''),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
-        'HOST': os.environ.get('DATABASE_HOST', ''),
+        'HOST': 'database',
         'PORT': '3306',
     }
 }
@@ -208,7 +208,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-SENTRY_DSN = 'https://8acbf8f918b544b1a2aa905582ba3a81@o4504621756841984.ingest.sentry.io/4504622014267392'
+SENTRY_DSN = os.environ.get('SENTRY_DSN', '')
 
 sentry_sdk.init(
     dsn=SENTRY_DSN,
