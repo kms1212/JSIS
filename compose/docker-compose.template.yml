@@ -1,0 +1,47 @@
+services:
+  backend:
+    image: {{ docker_registry_url }}/jsis-backend:latest
+    ports: 
+      - "8000:8000"
+    expose:
+      - "8000"
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: {{ migrations_data_dir }}
+        target: /migrations
+      - type: bind
+        source: {{ media_data_dir }}
+        target: /media
+    env_file:
+      - jsis_backend.env
+  
+  frontend:
+    image: {{ docker_registry_url }}/jsis-frontend:latest
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    env_file:
+      - jsis_frontend.env
+
+  database:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD={{ mysql_root_password }}
+      - MYSQL_DATABASE={{ mysql_database }}
+      - MYSQL_USER={{ mysql_user }}
+      - MYSQL_PASSWORD={{ mysql_password }}
+    volumes:
+      - type: bind
+        source: {{ mysql_data_dir }}
+        target: /var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 6
