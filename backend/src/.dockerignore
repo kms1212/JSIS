@@ -1,0 +1,6 @@
+__pycache__
+**/__pycache__
+docs
+.gitignore
+jsis.sqlite3
+jsis.sqlite3-journal
