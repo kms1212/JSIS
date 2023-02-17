@@ -16,6 +16,7 @@ scripts = [
     ("backend_test", "backend/scripts/test.sh"),
 
     ("publish", "scripts/publish.sh"),
+    ("create_report", "reports/template/scripts/latex-publish-report.sh")
 ]
 
 def run_shell_script(script, write_func, options):
@@ -59,8 +60,9 @@ def run_shell_scripts(script_nm, script, verbose):
         else:
             spin.ok("✔")
 
-        with open("reports/template/publish-report/data/" + script_nm + ".txt", "w", encoding="utf8") as f:
-            f.write(output)
+        if script_nm != "create_report":
+            with open("reports/template/publish-report/data/" + script_nm + ".txt", "w", encoding="utf8") as f:
+                f.write(output)
 
         return returncode
 
