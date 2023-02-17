@@ -6,7 +6,6 @@ import carouselTest2 from "@/assets/img/carouseltest2.png";
 import { getProfile } from "@/scripts/api/profile.js";
 import { getNoticeArticleList } from "@/scripts/api/notice.js";
 
-
 export default {
   name: "MainView",
   components: {

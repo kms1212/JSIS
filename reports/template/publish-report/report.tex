@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{kotex}
+
+\include{defs}
+
+\usepackage{lipsum}
+
+\setmainhangulfont{NanumGothic}
+
+%--------------------------------------------------------------
+% Title Page
+%--------------------------------------------------------------
+
+\title{서버 배포 보고서}
+\author{JSIS v9b1c6d-2cd95b-20230216a}
+\date{\today}
+
+%--------------------------------------------------------------
+
+\begin{document}
+\maketitle
+
+
+%--------------------------------------------------------------
+% Copyright, Contacts, Revision History Page
+%--------------------------------------------------------------
+\section*{저작권 및 연락처}
+
+\footnotesize % Reduce font size
+
+\subsection*{소프트웨어 라이선스}
+
+\textbf{BSD 3-Clause License}
+
+Copyright \textcopyright\ 2023, Minsu Kwon
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+\subsection*{연락처}
+
+프로그램 이슈는 아래의 링크로 연락 바랍니다. \\
+https://github.com/kms1212/JSIS/issues
+
+보안 관련 사항은 위의 링크를 통해 연락하지 말고, 아래의 연락처로 연락하시기 바랍니다. \\
+이메일: jsis@bjungang.hs.kr
+
+\vfill % Push the following down to the bottom of the page
+
+\subsubsection*{템플릿 변경사항}
+
+\scriptsize % Reduce font size further
+
+\begin{tabular}{cccc} % Column widths specified here, change as needed for your content
+	\toprule
+	v0.1 & 2023-02-16 & https://www.latextemplates.com/template/sullivan-business-report 기반으로 1차 템플릿을 작성함. \\
+	\bottomrule
+\end{tabular}
+
+\newpage
+
+%--------------------------------------------------------------
+
+
+%--------------------------------------------------------------
+% Contents
+%--------------------------------------------------------------
+\renewcommand\contentsname{목차}
+\tableofcontents{}
+\clearpage
+
+%--------------------------------------------------------------
+
+
+%--------------------------------------------------------------
+% Backend
+%--------------------------------------------------------------
+\section{백엔드 서버}
+
+\newpage
+
+\subsection{Lint 결과}
+
+\lstinputlisting{data/backend_lint.txt}
+
+\subsection{테스트 결과}
+
+\lstinputlisting{data/backend_test.txt}
+
+\newpage
+
+%--------------------------------------------------------------
+
+
+%--------------------------------------------------------------
+% Frontend
+%--------------------------------------------------------------
+
+\section{프론트엔드 웹앱}
+
+\newpage
+
+\subsection{Lint 결과}
+
+\lstinputlisting{data/frontend_lint.txt}
+
+\subsection{빌드 결과}
+
+\lstinputlisting{data/frontend_build.txt}
+
+\newpage
+
+%--------------------------------------------------------------
+
+
+%--------------------------------------------------------------
+% Publish
+%--------------------------------------------------------------
+
+\section{배포}
+
+\subsection{Docker 배포 결과}
+
+\lstinputlisting{data/publish.txt}
+
+\newpage
+
+%--------------------------------------------------------------
+
+
+\end{document}          

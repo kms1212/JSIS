@@ -1,0 +1,171 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{kotex}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\include{defs}
+
+\usepackage{lipsum}
+
+\setmainhangulfont{NanumGothic}
+\usepgfplotslibrary{statistics}
+\usepgfplotslibrary{dateplot}
+
+%--------------------------------------------------------------
+% Title Page
+%--------------------------------------------------------------
+
+\title{20XX년 XX월 월말 서버 상태 보고서}
+\author{JSIS v9b1c6d-2cd95b-20230216a}
+\date{\today}
+
+%--------------------------------------------------------------
+
+\begin{document}
+\maketitle
+
+
+%--------------------------------------------------------------
+% Copyright, Contacts, Revision History Page
+%--------------------------------------------------------------
+\section*{저작권 및 연락처}
+
+\footnotesize % Reduce font size
+
+\subsection*{소프트웨어 라이선스}
+
+\textbf{BSD 3-Clause License}
+
+Copyright \textcopyright\ 2023, Minsu Kwon
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+\subsection*{연락처}
+
+프로그램 이슈는 아래의 링크로 연락 바랍니다. \\
+https://github.com/kms1212/JSIS/issues
+
+보안 관련 사항은 위의 링크를 통해 연락하지 말고, 아래의 연락처로 연락하시기 바랍니다. \\
+이메일: jsis@bjungang.hs.kr
+
+\vfill % Push the following down to the bottom of the page
+
+\subsubsection*{템플릿 변경사항}
+
+\scriptsize % Reduce font size further
+
+\begin{tabular}{cccc} % Column widths specified here, change as needed for your content
+	\toprule
+	v0.1 & 2023-02-16 & https://www.latextemplates.com/template/sullivan-business-report 기반으로 1차 템플릿을 작성함. \\
+	\bottomrule
+\end{tabular}
+
+\newpage
+
+%--------------------------------------------------------------
+
+
+%--------------------------------------------------------------
+% Contents
+%--------------------------------------------------------------
+\renewcommand\contentsname{목차}
+\tableofcontents{}
+\clearpage
+
+%--------------------------------------------------------------
+
+
+%--------------------------------------------------------------
+% User Statistics
+%--------------------------------------------------------------
+
+\section{사용자 통계}
+
+
+\subsection{사용자 수}
+전교생 400명 중 10\%인 40명이 서비스를 이용하고 있습니다. (전월 대비 +10\%p)
+
+\begin{center}
+	\begin{tikzpicture}
+		\begin{axis}[
+			ybar,
+			ylabel=사용자 수,
+			xlabel=\empty,
+			width=0.8\textwidth,
+			height=6cm,
+			bar width=0.8cm,
+			enlarge x limits=0.2,
+			ymin=0,
+			date coordinates in=x,
+			xticklabel={\day.\month.},
+			xticklabel style={anchor=near xticklabel},
+			xtick=data,
+		]
+		\addplot coordinates {
+			(2022-01-01,50)
+			(2022-02-01,40)
+			(2022-03-01,60)
+			(2022-04-01,70)
+			(2022-05-01,55)
+			(2022-06-01,55)
+			(2022-07-01,55)
+			(2022-08-01,55)
+		};
+		\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+\subsection{TODO:}
+...
+
+\newpage
+
+%--------------------------------------------------------------
+
+
+\section*{Unnumbered section}
+\lipsum[1]
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{sky.jpg}
+\caption*{The sky is the limit.}
+\end{figure}
+
+\section{Second section}
+
+\lipsum[1]
+\begin{table}[!h]
+\centering
+\caption{Sample table.}
+\begin{tabular}{cccc}
+\toprule
+Value 1 & Value 2 & Value 3 & Value 4\\
+\midrule
+ odd     & odd   & odd & 1.00 \\
+ even    & even  & even& 1.00 \\
+ odd     & odd   & odd & 1.00 \\
+ even    & even  & even& 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\lipsum[1]
+
+\frameboxbegin{Sample frame}
+\lipsum[1]
+\frameboxend
+
+\end{document}          
