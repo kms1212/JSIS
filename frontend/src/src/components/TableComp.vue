@@ -53,13 +53,13 @@ export default {
 
 <template>
   <div class="relative">
-    <div class="flex flex-col sm:flex-row justify-between">
+    <div class="flex flex-col justify-between sm:flex-row">
       <h3 class="text-2xl font-semibold">공지사항</h3>
       <div class="flex items-center justify-between pb-4">
         <label for="table-search" class="sr-only">검색</label>
         <div class="relative">
           <div
-            class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
           >
             <vue-feather
               type="search"
@@ -70,7 +70,7 @@ export default {
           <input
             type="text"
             id="table-search"
-            class="block p-2 pl-10 text-sm border-b border-b-gray-200 focus:border-b-blue-600 focus:border-b-2 transition-all outline-none"
+            class="border-b border-b-gray-200 p-2 pl-10 text-sm outline-none transition-all focus:border-b-2 focus:border-b-blue-600"
             placeholder="검색하기"
             v-model="keyword"
             @keyup.enter="search"
@@ -130,7 +130,7 @@ export default {
       aria-label="Table navigation"
       v-if="rows"
     >
-      <span class="hidden sm:block text-sm font-normal text-gray-500"
+      <span class="hidden text-sm font-normal text-gray-500 sm:block"
         ><span class="font-semibold text-gray-900">{{ rows.total }}</span
         >개 중 <span class="font-semibold text-gray-900">{{ rows.count }}</span
         >번째 게시물</span
