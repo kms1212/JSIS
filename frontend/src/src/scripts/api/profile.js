@@ -10,7 +10,7 @@ export async function getProfile(options = {}) {
       },
     });
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       return response.data;
     }
   } else {
@@ -19,7 +19,7 @@ export async function getProfile(options = {}) {
     if (!options.cache || !authStore.getProfile) {
       const response = await instance.get("/auth/user/");
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         authStore.setProfile(response.data);
       }
     }

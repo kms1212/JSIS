@@ -8,7 +8,7 @@ export async function login(username, password) {
     password,
   });
 
-  if (response.status == 200) {
+  if (response.status === 200) {
     authStore.setToken(response.data.token);
 
     await authStore.profile;
