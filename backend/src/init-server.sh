@@ -29,8 +29,8 @@ for app in ${app_lists[@]}; do
     mkdir -p "$app/migrations"
     
     # Copy file if any migration files exist
-    if ls "migrations/$app/*" 1> /dev/null 2>&1; then
-        mv "migrations/$app/*" "$app/migrations/"
+    if ls "migrations/$app/"* 1> /dev/null 2>&1; then
+        mv "migrations/$app/"* "$app/migrations/"
     fi
 done
 
@@ -41,7 +41,7 @@ done
 python manage.py migrate
 
 for app in ${app_lists[@]}; do
-    cp "$app/migrations/*.py" "migrations/$app/"
+    cp "$app/migrations/"*.py "migrations/$app/"
 done
 
 tar -cvf jsis.tar migrations/*
