@@ -81,7 +81,7 @@ export default {
     <div class="relative overflow-x-auto rounded-2xl border border-gray-200">
       <table class="w-full text-left text-gray-500">
         <thead
-          class="hidden sm:table-header-group text-base text-gray-700 uppercase bg-gray-50"
+          class="hidden bg-gray-50 text-base uppercase text-gray-700 sm:table-header-group"
         >
           <tr>
             <th
@@ -93,7 +93,7 @@ export default {
                   ? 'width: ' + (column.ratio / colratiosum) * 100 + '%;'
                   : ''
               "
-              class="px-3 py-3 hidden sm:table-cell"
+              class="hidden px-3 py-3 sm:table-cell"
             >
               {{ column.label }}
             </th>
@@ -103,7 +103,7 @@ export default {
           <tr
             v-for="row in rows.list"
             :key="row"
-            class="bg-white border-b hover:bg-gray-50 cursor-pointer"
+            class="cursor-pointer border-b bg-white hover:bg-gray-50"
             @click="rowClicked(row)"
           >
             <td
@@ -111,7 +111,7 @@ export default {
               :key="column"
               scope="row"
               :class="column.class"
-              class="px-3 py-4 hidden sm:table-cell"
+              class="hidden px-3 py-4 sm:table-cell"
             >
               {{
                 !!column.key
@@ -126,7 +126,7 @@ export default {
       </table>
     </div>
     <nav
-      class="overflow-x-scroll flex items-center justify-between pt-4"
+      class="flex items-center justify-between pt-4 overflow-x-scroll"
       aria-label="Table navigation"
       v-if="rows"
     >
@@ -139,12 +139,12 @@ export default {
         <li>
           <div
             @click="prevPage"
-            class="flex items-center px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
+            class="ml-0 flex items-center rounded-l-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700"
           >
             <span class="sr-only">Previous</span>
             <vue-feather
               type="chevron-left"
-              class="w-5 h-5 my-auto"
+              class="my-auto w-5 h-5"
             ></vue-feather>
           </div>
         </li>
@@ -153,10 +153,10 @@ export default {
             @click="getPage({ page: pagenum })"
             :class="
               pagenum == rows.page
-                ? 'text-blue-600 border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700'
-                : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700'
+                ? 'border-blue-300 bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700'
+                : 'border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700'
             "
-            class="px-3 py-2 leading-tight border"
+            class="border px-3 py-2 leading-tight"
           >
             {{ pagenum }}
           </div>
@@ -164,7 +164,7 @@ export default {
         <li>
           <div
             @click="nextPage"
-            class="flex items-center px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"
+            class="ml-0 flex items-center rounded-r-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700"
           >
             <span class="sr-only">Next</span>
             <vue-feather

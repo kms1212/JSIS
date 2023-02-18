@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:1.23.3
 
 # Create workdir
 RUN mkdir /usr/local/workdir
