@@ -11,7 +11,7 @@ from .models import Article
 
 # Create your views here.
 class ArticleAPI(generics.GenericAPIView):
-    permission_classes = [ permissions.IsAuthenticated ]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
 
@@ -88,7 +88,7 @@ class ArticleAPI(generics.GenericAPIView):
             )
 
         articles = Article.objects.filter(deleted=False).order_by(orderdirection.value +
-                                                                    orderby.value)
+                                                                  orderby.value)
 
         if search:
             articles = advanced_search(articles, search)
@@ -107,7 +107,7 @@ class ArticleAPI(generics.GenericAPIView):
 
 
 class ArticleLikeAPI(generics.GenericAPIView):
-    permission_classes = [ permissions.IsAuthenticated ]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
         articleid = request.GET.get('articleid')

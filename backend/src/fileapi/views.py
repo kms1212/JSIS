@@ -10,7 +10,7 @@ from .models import File
 
 
 class FileAPI(generics.GenericAPIView):
-    permission_classes = [ permissions.IsAuthenticated ]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = File.objects.all()
 
     def get(self, request):
@@ -42,7 +42,7 @@ class FileAPI(generics.GenericAPIView):
 
 
 class FileInfoAPI(generics.GenericAPIView):
-    permission_classes = [ permissions.IsAuthenticated ]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = FileInfoSerializer
     queryset = File.objects.all()
 

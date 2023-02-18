@@ -124,14 +124,16 @@ class RegisterAPI(generics.GenericAPIView):
 
         token = account_activation_token.make_token(user)
         html_msg = render_to_string('authapi/email_template.html', {
-                'server_domain': SERVER_DOMAIN,
-                'token': token,
-                'uid': user.pk,
-            })
+            'server_domain': SERVER_DOMAIN,
+            'token': token,
+            'uid': user.pk,
+        })
 
-        email = EmailMultiAlternatives('[JSIS] 부산중앙고등학교 재학생인트라넷서비스 회원가입 인증 메일',
+        email = EmailMultiAlternatives(
+            '[JSIS] 부산중앙고등학교 재학생인트라넷서비스 회원가입 인증 메일',
             strip_tags(html_msg),
-            to=[user.email])
+            to=[user.email]
+        )
         email.attach_alternative(html_msg, 'text/html')
         email.send()
 
@@ -160,7 +162,7 @@ class UserAPI(generics.GenericAPIView):
     * 2020-02-??: Created by @kms1212.
     * 2020-02-18: Documented by @kms1212.
     """
-    permission_classes = [ permissions.IsAuthenticated, ]
+    [ permissions.IsAuthenticated, ]
 
     def get(self, request):
         """

@@ -8,7 +8,7 @@ from .serializers import MealSerializer
 
 # Create your views here.
 class MealAPI(generics.GenericAPIView):
-    permission_classes = [ permissions.IsAuthenticated ]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         serve_date = request.GET.get('mdate', timezone.now().strftime('%y%m%d'))

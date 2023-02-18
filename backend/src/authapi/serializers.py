@@ -293,7 +293,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         if not email[:email.find('@') - 1].isnumeric():
             errors.append('이메일 사용자명이 학번이 아닙니다. 가입을 원할 경우 관리자에게 문의하세요.')
 
-        if len(errors) > 0:
+        if errors:
             raise serializers.ValidationError(errors)
 
         return attrs
