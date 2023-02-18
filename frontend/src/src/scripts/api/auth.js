@@ -36,7 +36,6 @@ export function removeToken() {
 export function removeProfile() {
   const authStore = useAuthStore();
   authStore.setProfile("");
-  authStore.setProfileImage("");
 }
 
 export function restoreToken() {

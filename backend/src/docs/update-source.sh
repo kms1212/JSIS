@@ -4,4 +4,4 @@ set -e
 
 cd "${0%/*}"
 
-sphinx-apidoc -f -o source ../
+sphinx-apidoc -f -o source ../ ../**/migrations/

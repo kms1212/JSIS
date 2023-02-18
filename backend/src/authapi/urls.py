@@ -1,3 +1,20 @@
+"""
+URL patterns for the authapi app.
+
+URL Patterns
+------------
+* login/ - authapi.views.LoginAPI
+* logout/ - knox.views.LogoutAPI
+* register/ - authapi.views.RegisterAPI
+* user/ - authapi.views.UserAPI
+* validate_email/<str:uid>/<str:token>/ - authapi.views.EmailValidationAPI
+
+Revision History
+----------------
+* 2020-02-??: Created by @kms1212.
+* 2020-02-18: Documented by @kms1212.
+"""
+
 from django.urls import path
 from knox.views import LogoutView as LogoutAPI
 

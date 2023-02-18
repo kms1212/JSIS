@@ -1,3 +1,16 @@
+"""
+Utility functions for search.
+
+Functions
+---------
+:func:`advanced_search`: Provides advanced search functionality for Django models.
+
+Revision History
+----------------
+* 2023-02-09: Created by @kms1212.
+* 2023-02-18: Documented by @kms1212.
+"""
+
 import shlex
 import datetime
 
@@ -57,6 +70,49 @@ def advanced_search(queryset, search):
     """
     # pylint: enable=line-too-long
 
+    def exact_match(keyword):
+        return Q(title__iexact=keyword)
+
+    def exclude(keyword):
+        return ~Q(title__icontains=keyword)
+
+    def filter_by(key, value):
+        if key == 'author':
+            return Q(author__username__iexact=value)
+        return Q()
+
+    def date_filter(keyword):
+        if keyword == 'today':
+            date1 = datetime.datetime.now().date()
+            date2 = date1 + datetime.timedelta(days=1)
+        elif keyword[0] == '>':
+            try:
+                date1 = datetime.datetime.strptime(keyword[1:], '%Y-%m-%d').date()
+                date2 = date1 + datetime.timedelta(days=1)
+            except ValueError:
+                return Q()
+        elif keyword[0] == '<':
+            try:
+                date1 = datetime.datetime.strptime(keyword[1:], '%Y-%m-%d').date()
+                date2 = date1
+                date1 = datetime.date(1970, 1, 1)
+            except ValueError:
+                return Q()
+        elif keyword[1:3] == '<>':
+            try:
+                (date1, date2) = keyword[3:].split('~')
+                date1 = datetime.datetime.strptime(date1, '%Y-%m-%d').date()
+                date2 = datetime.datetime.strptime(date2, '%Y-%m-%d').date()
+                date2 += datetime.timedelta(days=1)
+            except ValueError:
+                return Q()
+        else:
+            return Q()
+        return Q(created__range=(date1, date2))
+
+    def contains(keyword):
+        return Q(title__icontains=keyword)
+
     if search is not None and queryset.exists():
         search = shlex.split(search)
         qlist = [ Q() ]
@@ -64,11 +120,11 @@ def advanced_search(queryset, search):
         for keyword in search:
             if keyword.startswith('!'):
                 # !: exact match
-                qlist[len(qlist) - 1] &= Q(title__iexact=keyword[1:])
+                qlist[len(qlist) - 1] &= exact_match(keyword[1:])
 
             elif keyword.startswith('-'):
                 # -: exclude
-                qlist[len(qlist) - 1] &= ~Q(title__icontains=keyword[1:])
+                qlist[len(qlist) - 1] &= exclude(keyword[1:])
 
             elif keyword == '||' or keyword.lower() == 'or':
                 # (||/or): OR
@@ -77,49 +133,15 @@ def advanced_search(queryset, search):
             elif keyword.startswith(':'):
                 # :<key>=<value>: filter
                 (key, value) = keyword[1:].split('=')
-                if key == 'author':
-                    qlist[len(qlist) - 1] &= Q(author__username__iexact=value)
-                else:
-                    continue
+                qlist[len(qlist) - 1] &= filter_by(key, value)
 
             elif keyword.startswith('@') and len(keyword) > 4:
                 # @(</>/<>/!<>)<date>[~<date>]: date filter (YYYY-MM-DD)
-                if keyword[1:3] == '<>':
-                    (date1, date2) = keyword[3:].split('~')
-                    try:
-                        date1 = datetime.datetime.strptime(date1, '%Y-%m-%d').date()
-                        date2 = datetime.datetime.strptime(date2, '%Y-%m-%d').date()
-                        date2 += datetime.timedelta(days=1)
-                    except ValueError:
-                        continue
-                    qlist[len(qlist) - 1] &= Q(created__range=(date1, date2))
-                elif keyword[1:4] == '!<>':
-                    (date1, date2) = keyword[4:].split('~')
-                    try:
-                        date1 = datetime.datetime.strptime(date1, '%Y-%m-%d').date()
-                        date2 = datetime.datetime.strptime(date2, '%Y-%m-%d').date()
-                        date2 += datetime.timedelta(days=1)
-                    except ValueError:
-                        continue
-                    qlist[len(qlist) - 1] &= ~Q(created__range=(date1, date2))
-                elif keyword[1] == '<':
-                    date = datetime.datetime.strptime(keyword[2:], '%Y-%m-%d').date()
-                    qlist[len(qlist) - 1] &= Q(created__lt=date)
-                elif keyword[1] == '>':
-                    date = datetime.datetime.strptime(keyword[2:], '%Y-%m-%d').date()
-                    qlist[len(qlist) - 1] &= Q(created__gt=date)
-                elif keyword[1:] == 'today':
-                    date = datetime.datetime.now().date()
-                    qlist[len(qlist) - 1] &= Q(created__date=date)
-                else:
-                    try:
-                        date = datetime.datetime.strptime(keyword[1:], '%Y-%m-%d').date()
-                    except ValueError:
-                        continue
-                    qlist[len(qlist) - 1] &= Q(created__date=date)
+                qlist[len(qlist) - 1] &= date_filter(keyword[1:])
+
             else:
                 # <keyword>: search
-                qlist[len(qlist) - 1] &= Q(title__icontains=keyword)
+                qlist[len(qlist) - 1] &= contains(keyword)
 
         qfilter = Q()
 

@@ -1,14 +1,6 @@
 fileapi package
 ===============
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   fileapi.migrations
-
 Submodules
 ----------
 

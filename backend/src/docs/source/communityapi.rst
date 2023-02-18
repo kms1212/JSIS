@@ -1,14 +1,6 @@
 communityapi package
 ====================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   communityapi.migrations
-
 Submodules
 ----------
 

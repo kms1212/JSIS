@@ -1,3 +1,21 @@
+# pylint: disable=line-too-long
+"""
+Serializers configuration for the authapi.
+
+Serializers
+-----------
+:class:`LoginSerializer` - username, password serializer for LoginView
+:class:`UserSerializer` - Simplified serializer for user basic information. (No personal information included)
+:class:`DetailedUserSerializer` - Detailed serial for user basic information. (Personal information included)
+:class:`RegisterSerializer` - User basic information input serializer for user registration
+
+Revision History
+----------------
+* 2020-02-??: Created by @kms1212.
+* 2020-02-18: Documented by @kms1212.
+"""
+# pylint: enable=line-too-long
+
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
@@ -9,10 +27,46 @@ from .models import UserAccount
 
 
 class LoginSerializer(serializers.Serializer):
+    """
+    Login Serializer
+
+    Fields
+    ------
+    :attrib username: Username
+    :attrib password: RAW Password
+
+    Revision History
+    ----------------
+    * 2020-02-??: Created by @kms1212.
+    * 2020-02-18: Documented by @kms1212.
+    """
     username = serializers.CharField()
     password = serializers.CharField()
 
     def validate(self, attrs):
+        """
+        User login validator
+
+        Description
+        -----------
+        Check username and password
+        Block login if user attribute "is_blocked" is True
+
+        Parameters / Return Values
+        --------------------------
+        :param attrs: Serializer attribute
+        :returns: authapi.models.UserAccount if valid user, None if not (raises Error)
+
+        Possible Errors
+        ---------------
+        :serializers.ValidationError:
+            Raised with error message when invalid user is trying to login
+
+        Revision History
+        ----------------
+        * 2020-02-??: Created by @kms1212.
+        * 2020-02-18: Documented by @kms1212.
+        """
         user = authenticate(**attrs)
         if user and user.is_active:
             if not user.is_blocked:
@@ -20,26 +74,75 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("서비스 이용이 정지된 계정입니다.")
         raise serializers.ValidationError("비밀번호가 틀렸거나 존재하지 않는 계정입니다.")
 
-    def create(self, _validated_data):
-        pass
-
-    def update(self, _instance, _validated_data):
-        pass
-
 
 class UserSerializer(serializers.ModelSerializer):
-    class Meta:
+    """
+    Simplified serializer for user basic information. (No personal information included)
+
+    Fields
+    ------
+    :attrib username:     Username
+    :attrib visiblename:  User nickname
+    :attrib permission:   User permission level
+    :attrib studentid:    Student ID
+    :attrib profileimage: Profile image
+    :attrib description:  User description
+
+    Revision History
+    ----------------
+    * 2020-02-??: Created by @kms1212.
+    * 2020-02-18: Documented by @kms1212.
+    """
+
+    class Meta:  # pylint: disable=missing-class-docstring
         model = UserAccount
-        fields = ('username', 'visiblename', 'permission', 'studentid', 'profileimage')
+        fields = ('username', 'visiblename', 'permission', 'studentid', 'profileimage', 'description')
 
 
 class DetailedUserSerializer(serializers.ModelSerializer):
-    class Meta:
+    """
+    Detailed serial for user basic information. (Personal information included)
+
+    Fields
+    ------
+    :attrib username:     Username
+    :attrib visiblename:  User nickname
+    :attrib email:        User email
+    :attrib permission:   User permission level
+    :attrib studentid:    Student ID
+    :attrib profileimage: Profile image
+    :attrib description:  User description
+
+    Revision History
+    ----------------
+    * 2020-02-??: Created by @kms1212.
+    * 2020-02-18: Documented by @kms1212.
+    """
+
+    class Meta:  # pylint: disable=missing-class-docstring
         model = UserAccount
-        fields = ('username', 'visiblename', 'email', 'permission', 'studentid', 'profileimage')
+        fields = ('username', 'visiblename', 'email', 'permission', 'studentid', 'profileimage', 'description')
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    """
+    User basic information input serializer for user registration
+
+    Fields
+    ------
+    :attrib username:           Username
+    :attrib visiblename:        User nickname
+    :attrib password:           Password
+    :attrib password_chk:       Repeated password (TODO: delete it)
+    :attrib email:              User email
+    :attrib profileimage:       User profile image
+
+    Revision History
+    ----------------
+    * 2020-02-??: Created by @kms1212.
+    * 2020-02-18: Documented by @kms1212.
+    """
+
     username = serializers.CharField(required=True)
     visiblename = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True, required=True)
@@ -47,7 +150,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     profileimage = serializers.ImageField(required=False, allow_null=True)
 
-    class Meta:
+    class Meta:  # pylint: disable=missing-class-docstring
         model = UserAccount
         fields = ('username', 'visiblename', 'password', 'password_chk', 'email', 'profileimage')
         extra_kwargs = {
@@ -56,6 +159,25 @@ class RegisterSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
+        """
+        User registration form validator
+
+        Description
+        -----------
+        Check username, password, email, visiblename, profileimage
+        Check if user already exists
+        Raise error if any of the above is not valid
+
+        Parameters / Return Values
+        --------------------------
+        :param attrs: Serializer attribute
+        :returns: attrs if valid, None if not (raises Error)
+
+        Revision History
+        ----------------
+        * 2020-02-??: Created by @kms1212.
+        * 2020-02-18: Documented by @kms1212.
+        """
         errors = []
         username = attrs['username']
         visiblename = attrs['visiblename']
@@ -107,6 +229,19 @@ class RegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        """
+        Register user with given validated attributes
+        
+        Parameters / Return Values
+        --------------------------
+        :param validated_data: Validated serializer attribute
+        :returns: authapi.models.UserAccount
+
+        Revision History
+        ----------------
+        * 2020-02-??: Created by @kms1212.
+        * 2020-02-18: Documented by @kms1212.
+        """
         username = validated_data['username']
         visiblename = validated_data['visiblename']
         password = validated_data['password']

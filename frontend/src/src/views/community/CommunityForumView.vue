@@ -12,6 +12,9 @@ export default {
     MarkdownComp: defineAsyncComponent(() =>
       import("@/components/MarkdownComp.vue")
     ),
+    ProfileImageComp: defineAsyncComponent(() =>
+      import("@/components/ProfileImageComp.vue")
+    ),
   },
   data() {
     return {
@@ -121,12 +124,18 @@ export default {
                 <vue-feather type="more-horizontal" size="1.5rem"></vue-feather>
               </div>
             </div>
-            <span class="text-sm lg:text-base space-y-1">
-              {{ posts["post" + idx].author.visiblename }} @{{
-                posts["post" + idx].author.username
-              }}
-              <span class="text-xs block tracking-widest">2시간 전</span>
-            </span>
+            <div class="flex flex-row space-x-2 place-items-center">
+              <ProfileImageComp
+                :userid="posts['post' + idx].author.userid"
+                class="w-8 h-8"
+              />
+              <span class="text-sm lg:text-base space-y-1">
+                {{ posts["post" + idx].author.visiblename }} @{{
+                  posts["post" + idx].author.username
+                }}
+                <span class="text-xs block tracking-widest">2시간 전</span>
+              </span>
+            </div>
             <MarkdownComp
               v-if="!!postDetails['post' + idx]"
               :document="postDetails['post' + idx].document"
@@ -138,7 +147,7 @@ export default {
         <div
           v-else
           :ref="'post' + idx"
-          class="p-3 w-10/12 max-w-lg mx-auto overflow-hidden border border-gray-200 bg-white"
+          class="p-3 w-10/12 max-w-lg mx-auto overflow-hidden border border-gray-200 bg-white space-y-2"
         >
           <div class="flex flex-row justify-between mb-2">
             <h3 class="text-lg font-semibold">
@@ -151,12 +160,18 @@ export default {
               <vue-feather type="more-horizontal" size="1.5rem"></vue-feather>
             </div>
           </div>
-          <span class="text-sm lg:text-base space-y-1">
-            {{ posts["post" + idx].author.visiblename }} @{{
-              posts["post" + idx].author.username
-            }}
-            <span class="text-xs block tracking-widest">2시간 전</span>
-          </span>
+          <div class="flex flex-row space-x-2 place-items-center">
+            <ProfileImageComp
+              :userid="posts['post' + idx].author.userid"
+              class="w-8 h-8"
+            />
+            <span class="text-sm lg:text-base space-y-1">
+              {{ posts["post" + idx].author.visiblename }} @{{
+                posts["post" + idx].author.username
+              }}
+              <span class="text-xs block tracking-widest">2시간 전</span>
+            </span>
+          </div>
           <MarkdownComp
             v-if="!!postDetails['post' + idx]"
             :document="postDetails['post' + idx].document"

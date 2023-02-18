@@ -2,9 +2,8 @@ import time
 import subprocess
 import os
 import argparse
-import io
-import selectors
 import shutil
+import io
 
 from yaspin import yaspin
 
@@ -26,28 +25,17 @@ def run_shell_script(script, write_func, options):
     options: verbose[True, False]
     """
     process = subprocess.Popen(script, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    strbuf = io.StringIO()
 
-    buf = io.StringIO()
-
-    def handle_output(stream, _mask):
-        line = stream.readline()
-        buf.write(line.decode("utf-8"))
-        if options['verbose']:
-            write_func(line.decode("utf-8").rstrip())
-
-    selector = selectors.DefaultSelector()
-    selector.register(process.stdout, selectors.EVENT_READ, handle_output)
-
-    while process.poll() is None:
-        events = selector.select()
-        for key, mask in events:
-            callback = key.data
-            callback(key.fileobj, mask)
+    with process.stdout:
+        for line in iter(process.stdout.readline, b''):
+            if options['verbose']:
+                write_func(line.decode("utf-8"))
+            strbuf.write(line.decode("utf-8"))
 
     returncode = process.wait()
-    selector.close()
 
-    return returncode, buf.getvalue()
+    return returncode, strbuf.getvalue()
 
 
 def run_shell_scripts(script_nm, script, verbose):

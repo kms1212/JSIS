@@ -17,8 +17,8 @@ class Reply(models.Model):
 
 
 class ArticleTypes(models.IntegerChoices):
-    INSTA = 0, '인스타그램형'
-    DOCUMENT = 1, '문서형'
+    INSTA = 0, '사진'
+    DOCUMENT = 1, '문서'
 
 
 class Article(models.Model):

@@ -63,8 +63,8 @@ export default {
               <div @click="like" class="flex items-center">
                 <vue-feather
                   type="thumbs-up"
-                  stroke="#3B82F6"
-                  :fill="article.liked ? '#3B82F6' : 'none'"
+                  stroke="#000"
+                  :fill="article.liked ? '#000' : 'none'"
                   size="1.25rem"
                 ></vue-feather>
                 <span v-if="article.likes_count != null">{{

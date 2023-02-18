@@ -1,14 +1,6 @@
 mainbbsapi package
 ==================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   mainbbsapi.migrations
-
 Submodules
 ----------
 

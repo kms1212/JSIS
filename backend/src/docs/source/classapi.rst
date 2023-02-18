@@ -1,14 +1,6 @@
 classapi package
 ================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   classapi.migrations
-
 Submodules
 ----------
 

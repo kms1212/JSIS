@@ -1,14 +1,6 @@
 authapi package
 ===============
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   authapi.migrations
-
 Submodules
 ----------
 

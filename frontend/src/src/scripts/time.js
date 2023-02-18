@@ -9,8 +9,20 @@ export function getSimplifiedTimestamp(timestamp) {
   console.log(now);
   console.log(mtimestamp);
 
-  if (mtimestamp.isSame(now, "day")) {
-    const passedTime = moment.duration(mtimestamp.diff(now)).asHours();
+  if (mtimestamp.isSame(now, "minute")) {
+    const passedSeconds = Math.floor(
+      moment.duration(mtimestamp.diff(now)).asSeconds()
+    );
+    return Math.abs(passedSeconds) + "초 전";
+  } else if (mtimestamp.isSame(now, "hour")) {
+    const passedMinutes = Math.floor(
+      moment.duration(mtimestamp.diff(now)).asMinutes()
+    );
+    return Math.abs(passedMinutes) + "분 전";
+  } else if (mtimestamp.isSame(now, "day")) {
+    const passedTime = Math.floor(
+      moment.duration(mtimestamp.diff(now)).asHours()
+    );
     return Math.abs(passedTime) + "시간 전";
   } else if (mtimestamp.isSame(yesterday, "day")) {
     return "어제";

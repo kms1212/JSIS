@@ -37,7 +37,6 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     token: useStorage("token", "", localStorage),
     profile: null,
-    profileimage: useStorage("profileimage", null, sessionStorage),
   }),
   getters: {},
   actions: {
@@ -52,9 +51,6 @@ export const useAuthStore = defineStore("auth", {
     },
     setProfile(newProfile) {
       this.$patch({ profile: newProfile });
-    },
-    setProfileImage(newProfileImage) {
-      this.$patch({ profileimage: newProfileImage });
     },
   },
 });

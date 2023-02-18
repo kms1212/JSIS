@@ -1,9 +1,24 @@
+"""
+Utility functions for file.
+
+Functions
+---------
+:func:`get_data_from_file`: Get the binary data from a file.
+:func:`get_size_from_file`: Get the file size from a file.
+:func:`register_file`: Register a file.
+
+Revision History
+----------------
+* 2023-02-??: Created by @kms1212.
+* 2023-02-18: Documented by @kms1212.
+"""
+
 import uuid
 
 import magic
 
-from fileapi.models import File
 from django.core.files.storage import default_storage
+from fileapi.models import File
 
 def get_data_from_file(file):
     """

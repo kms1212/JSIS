@@ -155,7 +155,7 @@ export default {
           <div
             class="flex items-start gap-3 p-3 mr-3 rounded-md hover:bg-gray-100"
           >
-            <div class="hidden sm:flex flex-row space-x-3">
+            <RouterLink to="/profile" class="hidden sm:flex flex-row space-x-3">
               <ProfileImageComp class="h-10 w-10"></ProfileImageComp>
               <p class="text-base font-medium">
                 {{ user.visiblename }}
@@ -163,7 +163,7 @@ export default {
                   {{ user.studentid }} @{{ user.username }}
                 </span>
               </p>
-            </div>
+            </RouterLink>
             <div @click="logout" class="hidden p-2 rounded hover:bg-gray-200">
               <vue-feather type="log-out"></vue-feather>
             </div>
@@ -172,7 +172,7 @@ export default {
         <div
           class="w-full flex flex-col md:rounded-tl-2xl bg-gray-100 border-l border-gray-100"
         >
-          <RouterView class="overflow-scroll pt-4 md:p-8"></RouterView>
+          <RouterView class="overflow-scroll p-4 md:p-8"></RouterView>
         </div>
       </div>
     </div>

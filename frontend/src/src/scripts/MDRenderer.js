@@ -40,20 +40,7 @@ renderer.heading = function (text, level) {
       font_weight = "font-bold";
   }
 
-  return (
-    "<h" +
-    level +
-    ' class="mb-2 mt-5 ' +
-    text_size +
-    " " +
-    font_weight +
-    '">' +
-    text +
-    "</h" +
-    level +
-    ">" +
-    additional
-  );
+  return `<h${level} class="mb-2 mt-5 ${text_size} ${font_weight}">${text}</h${level}>${additional}`;
 };
 
 renderer.paragraph = function (text) {
@@ -62,27 +49,19 @@ renderer.paragraph = function (text) {
 
 renderer.list = function (body, ordered) {
   var type = ordered ? "ol" : "ul";
-  return (
-    "<" + type + ' class="list-disc ml-4 mb-2">' + body + "</" + type + ">"
-  );
+
+  return `<${type} class="list-disc ml-4 mb-2">${body}</${type}>`;
 };
 
 renderer.listitem = function (text) {
-  return '<li class="mb-1">' + text + "</li>";
+  return `<li class="mb-1">${text}</li>`;
 };
 
 renderer.table = function (header, body) {
   if (body) {
-    body = "<tbody>" + body + "</tbody>";
+    body = `<tbody>${body}</tbody>`;
   }
-  return (
-    '<table class="border-collapse border border-black">' +
-    "<thead>" +
-    header +
-    "</thead>" +
-    body +
-    "</table>"
-  );
+  return `<table class="border-collapse border border-black"><thead>${header}</thead>${body}</table>`;
 };
 
 renderer.tablerow = function (content) {

@@ -1,14 +1,6 @@
 mealapi package
 ===============
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   mealapi.migrations
-
 Submodules
 ----------
 
