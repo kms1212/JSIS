@@ -91,7 +91,7 @@ def register_file(filename, file, uploader):
     * 2023-02-09: Documented by @kms1212.
     """
     filename_saved = default_storage.save(uuid.uuid4(), file)
-    file_saved = default_storage.open(filename_saved, 'r')
+    file_saved = default_storage.open(filename_saved, 'rb')
     file_o = File.objects.create(filename=filename,
                                  data=filename_saved,
                                  uploader=uploader,

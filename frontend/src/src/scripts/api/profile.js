@@ -3,8 +3,11 @@ import { useAuthStore } from "@/scripts/api/axios.js";
 
 export async function getProfile(options = {}) {
   if (options.userid) {
+    console.log(options.userid);
     const response = await instance.get("/auth/user/", {
-      userid: options.userid,
+      params: {
+        userid: options.userid,
+      },
     });
 
     if (response.status == 200) {

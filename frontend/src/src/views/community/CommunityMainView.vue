@@ -44,8 +44,8 @@ export default {
         </div>
         <span>📮 받은 쪽지가 없습니다.</span>
         <div class="w-full flex justify-between pr-4 text-sm">
-          <span>게시물 0개</span>
-          <span>댓글 0개</span>
+          <span>게시물 {{ user.post_count }}개</span>
+          <span>댓글 {{ user.reply_count }}개</span>
         </div>
       </div>
       <div class="pt-4 sm:pt-0 sm:pl-4">

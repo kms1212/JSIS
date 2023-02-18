@@ -5,6 +5,8 @@ import carouselTest1 from "@/assets/img/carouseltest1.png";
 import carouselTest2 from "@/assets/img/carouseltest2.png";
 import { getProfile } from "@/scripts/api/profile.js";
 import { getNoticeArticleList } from "@/scripts/api/notice.js";
+import { getMeal } from "@/scripts/api/meal.js";
+import moment from "moment";
 
 export default {
   name: "MainView",
@@ -22,6 +24,8 @@ export default {
       ],
       user: {},
       notices: {},
+      mealdata: null,
+      currenttime: moment().format("YYYY-MM-DD HH:mm:ss"),
     };
   },
   created() {
@@ -40,6 +44,40 @@ export default {
       .catch((error) => {
         console.error(error);
       });
+
+    getMeal({ mdate: '221227', mtime: 2 })
+      .then((response) => {
+        this.mealdata = response;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    setInterval(() => {
+      this.currenttime = moment().format("YYYY-MM-DD HH:mm:ss");
+    }, 1000);
+  },
+  computed: {
+    getMealDateStr() {
+      if (!this.mealdata) return "";
+
+      const date = String(this.mealdata.serve_date);
+      return `20${date.slice(0, 2)}/${date.slice(2, 4)}/${date.slice(4, 6)}`;
+    },
+    getMealTimeStr() {
+      if (!this.mealdata) return "";
+
+      switch (this.mealdata.serve_time) {
+        case 1:
+          return "조식";
+        case 2:
+          return "중식";
+        case 3:
+          return "석식";
+        default:
+          return "";
+      }
+    },
   },
 };
 </script>
@@ -50,40 +88,28 @@ export default {
     class="space-y-4 gap-4 sm:grid sm:grid-cols-2 sm:space-y-0 xl:grid-cols-4"
   >
     <div
-      class="divide-y divide-gray-300/50 rounded-2xl bg-white w-full border-gray-200 border p-5 max-w-64"
+      class="rounded-2xl bg-white w-full border-gray-200 h-64 border p-5 max-w-64"
     >
-      <div class="pb-6">
+      <div v-if="!!mealdata">
         <div class="flex flex-col justify-between mb-1">
           <span class="text-2xl font-semibold">급식</span>
-          <span class="text-sm">2023/03/02 중식</span>
+          <span class="text-sm">{{ getMealDateStr }} 중식</span>
         </div>
-        <ul class="overflow-y-scroll h-28 text-base">
-          <li>백미밥</li>
-          <li>백미밥</li>
-          <li>백미밥</li>
-          <li>백미밥</li>
-          <li>백미밥</li>
-          <li>백미밥</li>
-          <li>백미밥</li>
+        <ul class="overflow-y-scroll text-base">
+          <li v-for="menu in mealdata.menus" :key="menu">{{ menu.name }}</li>
         </ul>
       </div>
-      <div class="pt-4">
-        <div class="flex justify-between mb-1">
-          <span class="text-base">8GB 중 2GB 사용</span>
-          <span class="text-sm">25%</span>
-        </div>
-        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-          <div class="bg-blue-600 h-2.5 rounded-full" style="width: 25%"></div>
-        </div>
+      <div class="text-center h-full" v-else>
+        <span class="text-sm">급식 정보가 없습니다.</span>
       </div>
     </div>
     <div
       class="col-span-1 rounded-2xl bg-white w-full border-gray-200 border p-5 flex flex-col items-center xl:order-3"
     >
       <div class="w-full h-full flex-1 flex items-center">
-        <span class="text-2xl font-bold w-full text-center"
-          >2023년 1월 21일</span
-        >
+        <span class="text-2xl font-bold w-full text-center">{{
+          currenttime
+        }}</span>
       </div>
       <div class="w-full h-full flex-1 flex items-center">
         <span class="text-2xl font-bold w-full text-center"

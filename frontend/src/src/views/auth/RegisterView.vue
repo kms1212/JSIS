@@ -1,12 +1,8 @@
 <script>
-import { RouterLink } from "vue-router";
 import APIAuth from "@/scripts/api/auth.js";
 
 export default {
-  name: "LoginView",
-  components: {
-    RouterLink,
-  },
+  name: "RegisterView",
   methods: {
     login() {
       APIAuth.login(this.username, this.password)
@@ -32,7 +28,7 @@ export default {
 
 <template>
   <div class="space-y-6 py-8 text-base leading-7 text-black">
-    <h1 class="text-3xl font-extrabold text-center">로그인</h1>
+    <h1 class="text-3xl font-extrabold text-center">회원가입</h1>
     <div>
       <ul class="space-y-5">
         <li class="flex items-start flex-col space-y-2">
@@ -72,7 +68,7 @@ export default {
     </div>
     <div class="pt-8 text-base font-semibold leading-none grid grid-cols-2">
       <p>JSIS</p>
-      <RouterLink class="text-right" to="/auth/register">회원가입</RouterLink>
+      <a class="text-right" href="{% url 'membersvc:register' %}">회원가입</a>
     </div>
   </div>
 </template>

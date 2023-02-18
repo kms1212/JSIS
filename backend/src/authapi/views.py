@@ -18,6 +18,7 @@ from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
+from django.utils import timezone
 
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
@@ -70,6 +71,9 @@ class LoginAPI(generics.GenericAPIView):
             )
 
         user = serializer.validated_data
+
+        user.date_lastlogin = timezone.now()
+        user.save()
 
         return Response(
             {

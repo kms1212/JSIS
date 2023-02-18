@@ -17,7 +17,6 @@ export default {
     return {
       user: {},
       mobileMenu: false,
-      navselected: "main",
     };
   },
   created() {
@@ -61,7 +60,7 @@ export default {
       <div class="flex flex-row h-full">
         <!-- Navigation for large devices (>md) -->
         <nav
-          class="place-items-center w-72 bg-white justify-between hidden md:flex flex-col p-3 pr-0"
+          class="place-items-center lg:w-72 bg-white justify-between hidden md:flex flex-col p-3 pr-0"
         >
           <ul
             class="items-center space-y-1 justify-center text-lg font-semibold w-full"
@@ -69,102 +68,103 @@ export default {
             <li>
               <RouterLink
                 to="/"
-                class="relative flex content-center p-3 hover:bg-gray-100 transition-colors duration-200"
+                class="relative flex justify-center lg:justify-start p-3 hover:bg-gray-100 transition-colors duration-200"
                 :class="{
-                  'bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
+                  'pr-6 bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
                     currentRoute === 'Main',
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'Main',
                 }"
               >
-                <vue-feather type="home" class="mr-2" />
-                메인
+                <vue-feather type="home" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <span class="hidden lg:block">메인</span>
               </RouterLink>
             </li>
             <li>
               <RouterLink
                 to="/class"
-                class="relative flex content-center p-3 hover:bg-gray-100 transition-colors duration-200"
+                class="relative flex justify-center lg:justify-start p-3 hover:bg-gray-100 transition-colors duration-200"
                 :class="{
-                  'bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
+                  'pr-6 bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
                     currentRoute === 'ClassMain',
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'ClassMain',
                 }"
               >
-                <vue-feather type="briefcase" class="mr-2" />
-                학급
+                <vue-feather type="briefcase" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <span class="hidden lg:block">학급</span>
               </RouterLink>
             </li>
             <li>
               <RouterLink
                 to="/meal"
-                class="relative flex content-center p-3 hover:bg-gray-100 transition-colors duration-200"
+                class="relative flex justify-center lg:justify-start p-3 hover:bg-gray-100 transition-colors duration-200"
                 :class="{
-                  'bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
+                  'pr-6 bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
                     currentRoute === 'MealMain',
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'MealMain',
                 }"
               >
-                <vue-feather type="coffee" class="mr-2" />
-                급식정보
+                <vue-feather type="coffee" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <span class="hidden lg:block">급식정보</span>
               </RouterLink>
             </li>
             <li>
               <RouterLink
                 to="/community"
-                class="relative flex content-center p-3 hover:bg-gray-100 transition-colors duration-200"
+                class="relative flex justify-center lg:justify-start p-3 hover:bg-gray-100 transition-colors duration-200"
                 :class="{
-                  'bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
+                  'pr-6 bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
                     currentRoute === 'CommunityMain',
                   'mr-3 text-gray-600 rounded-md':
                     currentRoute !== 'CommunityMain',
                 }"
               >
-                <vue-feather type="message-circle" class="mr-2" />
-                커뮤니티
+                <vue-feather type="message-circle" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <span class="hidden lg:block">커뮤니티</span>
               </RouterLink>
             </li>
             <li>
               <RouterLink
                 to="/hq"
-                class="relative flex content-center p-3 hover:bg-gray-100 transition-colors duration-200"
+                class="relative flex justify-center lg:justify-start p-3 hover:bg-gray-100 transition-colors duration-200"
                 :class="{
-                  'bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
+                  'pr-6 bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
                     currentRoute === 'HQMain',
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'HQMain',
                 }"
               >
-                <vue-feather type="users" class="mr-2" />
-                학생회
+                <vue-feather type="users" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <span class="hidden lg:block">학생회</span>
               </RouterLink>
             </li>
             <li>
               <RouterLink
                 to="/conv"
-                class="relative flex content-center p-3 hover:bg-gray-100 transition-colors duration-200"
+                class="relative flex justify-center lg:justify-start p-3 hover:bg-gray-100 transition-colors duration-200"
                 :class="{
-                  'bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
+                  'pr-6 bg-gray-100 w-[calc(100%+3px)] rounded-l-md text-black':
                     currentRoute === 'ConvMain',
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'ConvMain',
                 }"
               >
-                <vue-feather type="book" class="mr-2" />
-                중앙하우스/탑서점
+                <vue-feather type="book" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <span class="hidden lg:block">중앙하우스/탑서점</span>
               </RouterLink>
             </li>
           </ul>
-          <div
-            class="flex items-start gap-3 p-3 mr-3 rounded-md hover:bg-gray-100"
-          >
-            <RouterLink to="/profile" class="hidden sm:flex flex-row space-x-3">
+          <div class="lg:flex gap-3 mr-3 items-center">
+            <RouterLink
+              to="/profile"
+              class="hidden sm:flex flex-row space-x-3 p-3 rounded-md items-center hover:bg-gray-100"
+            >
               <ProfileImageComp class="h-10 w-10"></ProfileImageComp>
-              <p class="text-base font-medium">
+              <p class="text-base font-medium hidden lg:block">
                 {{ user.visiblename }}
                 <span class="text-sm block tracking-widest">
-                  {{ user.studentid }} @{{ user.username }}
+                  {{ user.studentid }}
                 </span>
               </p>
             </RouterLink>
-            <div @click="logout" class="hidden p-2 rounded hover:bg-gray-200">
+            <div @click="logout" class="p-2 pb-1 rounded hover:bg-gray-200 text-center">
               <vue-feather type="log-out"></vue-feather>
             </div>
           </div>

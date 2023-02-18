@@ -24,6 +24,7 @@ from django.core.validators import validate_email
 
 import utils.file as fileutils
 from .models import UserAccount
+from communityapi.models import Article, Reply
 
 
 class LoginSerializer(serializers.Serializer):
@@ -81,12 +82,15 @@ class UserSerializer(serializers.ModelSerializer):
 
     Fields
     ------
+    :attrib userid:       User ID
     :attrib username:     Username
     :attrib visiblename:  User nickname
     :attrib permission:   User permission level
     :attrib studentid:    Student ID
     :attrib profileimage: Profile image
     :attrib description:  User description
+    :attrib post_count:       User post count
+    :attrib reply_count:      User reply count
 
     Revision History
     ----------------
@@ -94,9 +98,34 @@ class UserSerializer(serializers.ModelSerializer):
     * 2020-02-18: Documented by @kms1212.
     """
 
+    post_count = serializers.SerializerMethodField()
+    reply_count = serializers.SerializerMethodField()
+
+    def get_post_count(self, obj):
+        """
+        Internal method for getting user post count
+        """
+        return Article.objects.filter(author=obj).count()
+
+    def get_reply_count(self, obj):
+        """
+        Internal method for getting user reply count
+        """
+        return Reply.objects.filter(author=obj).count()
+
     class Meta:  # pylint: disable=missing-class-docstring
         model = UserAccount
-        fields = ('username', 'visiblename', 'permission', 'studentid', 'profileimage', 'description')
+        fields = (
+            'userid',
+            'username',
+            'visiblename',
+            'permission',
+            'studentid',
+            'profileimage',
+            'description',
+            'post_count',
+            'reply_count',
+            )
 
 
 class DetailedUserSerializer(serializers.ModelSerializer):
@@ -105,13 +134,22 @@ class DetailedUserSerializer(serializers.ModelSerializer):
 
     Fields
     ------
-    :attrib username:     Username
-    :attrib visiblename:  User nickname
-    :attrib email:        User email
-    :attrib permission:   User permission level
-    :attrib studentid:    Student ID
-    :attrib profileimage: Profile image
-    :attrib description:  User description
+    :attrib userid:           User ID
+    :attrib username:         Username
+    :attrib visiblename:      User nickname
+    :attrib email:            User email
+    :attrib permission:       User permission level
+    :attrib studentid:        Student ID
+    :attrib profileimage:     Profile image
+    :attrib description:      User description
+    :attrib date_joined:      User registration date
+    :attrib date_lastlogin:   User last login date
+    :attrib is_blocked:       User block status
+    :attrib is_blocked_anon:  User anonymous block status
+    :attrib block_reason:     User block reason
+    :attrib agreement_status: User agreement status
+    :attrib post_count:       User post count
+    :attrib reply_count:      User reply count
 
     Revision History
     ----------------
@@ -119,9 +157,41 @@ class DetailedUserSerializer(serializers.ModelSerializer):
     * 2020-02-18: Documented by @kms1212.
     """
 
+    post_count = serializers.SerializerMethodField()
+    reply_count = serializers.SerializerMethodField()
+
+    def get_post_count(self, obj):
+        """
+        Internal method for getting user post count
+        """
+        return Article.objects.filter(author=obj).count()
+
+    def get_reply_count(self, obj):
+        """
+        Internal method for getting user reply count
+        """
+        return Reply.objects.filter(author=obj).count()
+
     class Meta:  # pylint: disable=missing-class-docstring
         model = UserAccount
-        fields = ('username', 'visiblename', 'email', 'permission', 'studentid', 'profileimage', 'description')
+        fields = (
+            'userid',
+            'username',
+            'visiblename',
+            'email',
+            'permission',
+            'studentid',
+            'profileimage',
+            'description',
+            'date_joined',
+            'date_lastlogin',
+            'is_blocked',
+            'is_blocked_anon',
+            'block_reason',
+            'agreement_status',
+            'post_count',
+            'reply_count',
+            )
 
 
 class RegisterSerializer(serializers.ModelSerializer):

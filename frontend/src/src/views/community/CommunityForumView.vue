@@ -5,10 +5,12 @@ import {
   getCommunityArticle,
 } from "@/scripts/api/community.js";
 import { getFile, readFileAsDataURL } from "@/scripts/api/file.js";
+import { RouterLink } from "vue-router";
 
 export default {
   name: "CommunityForumView",
   components: {
+    RouterLink,
     MarkdownComp: defineAsyncComponent(() =>
       import("@/components/MarkdownComp.vue")
     ),
@@ -124,7 +126,12 @@ export default {
                 <vue-feather type="more-horizontal" size="1.5rem"></vue-feather>
               </div>
             </div>
-            <div class="flex flex-row space-x-2 place-items-center">
+            <RouterLink
+              :to="'/profile/' + posts['post' + idx].author.userid"
+              v-if="posts['post' + idx]"
+              :key="posts['post' + idx]"
+              class="flex flex-row space-x-2 place-items-center"
+            >
               <ProfileImageComp
                 :userid="posts['post' + idx].author.userid"
                 class="w-8 h-8"
@@ -135,7 +142,7 @@ export default {
                 }}
                 <span class="text-xs block tracking-widest">2시간 전</span>
               </span>
-            </div>
+            </RouterLink>
             <MarkdownComp
               v-if="!!postDetails['post' + idx]"
               :document="postDetails['post' + idx].document"

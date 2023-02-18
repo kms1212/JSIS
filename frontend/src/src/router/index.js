@@ -15,8 +15,29 @@ const router = createRouter({
         },
         {
           path: "profile",
+          name: "SelfProfile",
+          component: () => import("@/views/main/ProfileView.vue"),
+          redirect: { name: "SelfPosts" },
+          children: [
+            {
+              path: "",
+              name: "SelfPosts",
+              component: () => import("@/views/main/ProfileView/PostsView.vue"),
+            },
+          ],
+        },
+        {
+          path: "profile/:id",
           name: "Profile",
           component: () => import("@/views/main/ProfileView.vue"),
+          redirect: { name: "Posts" },
+          children: [
+            {
+              path: "",
+              name: "Posts",
+              component: () => import("@/views/main/ProfileView/PostsView.vue"),
+            },
+          ],
         },
         {
           path: "notice",
@@ -76,6 +97,11 @@ const router = createRouter({
           path: "login",
           name: "Login",
           component: () => import("@/views/auth/LoginView.vue"),
+        },
+        {
+          path: "register",
+          name: "Register",
+          component: () => import("@/views/auth/RegisterView.vue"),
         },
       ],
     },
