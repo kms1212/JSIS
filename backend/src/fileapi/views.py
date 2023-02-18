@@ -1,7 +1,7 @@
+from django.http.response import HttpResponse
+
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
-
-from django.http.response import HttpResponse
 
 import utils.file as fileutils
 

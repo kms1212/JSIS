@@ -9,10 +9,17 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
 
 from pathlib import Path
-import os
-from django.core.management.utils import get_random_secret_key
+from corsheaders.defaults import default_headers
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+from . import env
+
+SERVER_DOMAIN = env.SERVER_DOMAIN
+FRONTEND_DOMAIN = env.FRONTEND_DOMAIN
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_random_secret_key()
+SECRET_KEY = env.DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -156,8 +163,8 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST_USER = env.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = env.EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
@@ -192,9 +199,32 @@ MEDIA_ROOT = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = [ ]
+CSRF_TRUSTED_ORIGINS = [SERVER_DOMAIN]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "sentry-trace",
+    "baggage"
+]
+
+
+# Sentry Integration
+
+SENTRY_DSN = env.SENTRY_DSN
+
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+    send_default_pii=True
+)
+
 # NEIS API
-NEIS_API_KEY = os.environ.get('NEIS_API_KEY', '')
+NEIS_API_KEY = env.NEIS_API_KEY
+
+# Education Office Code
+OE_CODE = 'C10'
+
+# School Code
+SC_CODE = '7150107'

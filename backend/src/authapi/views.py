@@ -162,7 +162,7 @@ class UserAPI(generics.GenericAPIView):
     * 2020-02-??: Created by @kms1212.
     * 2020-02-18: Documented by @kms1212.
     """
-    [ permissions.IsAuthenticated, ]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         """
@@ -175,7 +175,8 @@ class UserAPI(generics.GenericAPIView):
             user_serialized = UserSerializer(user, context=self.get_serializer_context()).data
         else:
             user = request.user
-            user_serialized = DetailedUserSerializer(user, context=self.get_serializer_context()).data
+            user_serialized = DetailedUserSerializer(user,
+                                                     context=self.get_serializer_context()).data
 
         return Response(user_serialized)
 

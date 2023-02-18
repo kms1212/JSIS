@@ -15,9 +15,10 @@ Revision History
 
 import uuid
 
+from django.core.files.storage import default_storage
+
 import magic
 
-from django.core.files.storage import default_storage
 from fileapi.models import File
 
 def get_data_from_file(file):
@@ -35,7 +36,7 @@ def get_data_from_file(file):
 
     This function gets filename from the file object and opens it with the default storage.
     Then, it reads the file and returns the data.
-    
+
     Revision History
     ----------------
     * 2023-02-??: Created by @kms1212.

@@ -115,7 +115,7 @@ def advanced_search(queryset, search):
 
     if search is not None and queryset.exists():
         search = shlex.split(search)
-        qlist = [ Q() ]
+        qlist = [Q()]
 
         for keyword in search:
             if keyword.startswith('!'):

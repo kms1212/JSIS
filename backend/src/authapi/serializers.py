@@ -16,15 +16,16 @@ Revision History
 """
 # pylint: enable=line-too-long
 
-from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
+from rest_framework import serializers
+
 import utils.file as fileutils
-from .models import UserAccount
 from communityapi.models import Article, Reply
+from .models import UserAccount
 
 
 class LoginSerializer(serializers.Serializer):
@@ -301,7 +302,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """
         Register user with given validated attributes
-        
+
         Parameters / Return Values
         --------------------------
         :param validated_data: Validated serializer attribute

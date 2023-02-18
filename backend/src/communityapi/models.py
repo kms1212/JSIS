@@ -28,7 +28,7 @@ class Article(models.Model):
                                related_name='community_%(class)s_author',
                                null=True)
     title = models.CharField(max_length=255, null=True)
-    type = models.IntegerField(default=ArticleTypes.INSTA,choices=ArticleTypes.choices)
+    type = models.IntegerField(default=ArticleTypes.INSTA, choices=ArticleTypes.choices)
     document = models.TextField()
     views = models.IntegerField(default=0)
     files = models.ManyToManyField(File,

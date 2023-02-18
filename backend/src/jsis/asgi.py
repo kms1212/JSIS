@@ -13,7 +13,7 @@ from django_asgi_lifespan.signals import asgi_shutdown, asgi_startup
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jsis.settings')
 
-django_application = get_asgi_application()
+django_application = get_asgi_application()  # pylint: disable=invalid-name
 
 async def application(scope, receive, send):
     if scope['type'] in {'http', 'lifespan'}:
