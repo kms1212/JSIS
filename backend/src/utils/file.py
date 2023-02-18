@@ -60,7 +60,7 @@ def get_size_from_file(file):
 
     This function gets filename from the file object and opens it with the default storage.
     Then, it reads the file and returns the file size.
-    
+
     Revision History
     ----------------
     * 2023-02-??: Created by @kms1212.

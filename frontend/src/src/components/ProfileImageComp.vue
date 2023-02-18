@@ -56,7 +56,7 @@ export default {
     <vue-feather
       v-if="!profileimage"
       type="user"
-      class="rounded-full border border-gray-200 w-full p-[10%] bg-white"
+      class="w-full rounded-full border border-gray-200 bg-white p-[10%]"
     ></vue-feather>
   </div>
 </template>

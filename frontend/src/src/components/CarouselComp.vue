@@ -37,19 +37,19 @@ export default {
 </script>
 
 <template>
-  <div class="relative overflow-hidden h-full">
+  <div class="relative h-full overflow-hidden">
     <div class="relative h-full">
       <RouterLink
         v-for="(image, idx) in images"
         v-bind:key="idx"
         :to="image.link"
-        class="duration-700 ease-in-out items-center w-full h-full"
+        class="h-full w-full items-center duration-700 ease-in-out"
       >
         <transition>
           <img
             :src="image.url"
             v-if="idx == selected"
-            class="object-cover absolute block w-full h-full"
+            class="absolute block h-full w-full object-cover"
             :alt="image.alt"
           />
         </transition>
@@ -57,11 +57,11 @@ export default {
     </div>
     <button
       type="button"
-      class="absolute top-0 left-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+      class="group absolute top-0 left-0 flex h-full items-center cursor-pointer justify-center px-4 focus:outline-none"
       @click="prevBtnClick"
     >
       <span
-        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white"
       >
         <vue-feather type="chevron-left"></vue-feather>
         <span class="sr-only">Previous</span>
@@ -69,11 +69,11 @@ export default {
     </button>
     <button
       type="button"
-      class="absolute top-0 right-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+      class="group absolute top-0 left-0 flex h-full items-center cursor-pointer justify-center px-4 focus:outline-none"
       @click="nextBtnClick"
     >
       <span
-        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white"
       >
         <vue-feather type="chevron-right"></vue-feather>
         <span class="sr-only">Next</span>
