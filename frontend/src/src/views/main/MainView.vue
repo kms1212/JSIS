@@ -45,7 +45,7 @@ export default {
         console.error(error);
       });
 
-    getMeal({ mdate: '221227', mtime: 2 })
+    getMeal({ mdate: "221227", mtime: 2 })
       .then((response) => {
         this.mealdata = response;
       })

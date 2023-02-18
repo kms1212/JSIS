@@ -71,7 +71,9 @@ export default {
     >
       <div class="flex flex-col space-y-4">
         <div class="flex justify-center w-full sm:w-fit">
-          <ProfileImageComp class="sm:h-56 sm:w-56 sm:m-6 w-full h-full max-w-xs"></ProfileImageComp>
+          <ProfileImageComp
+            class="sm:h-56 sm:w-56 sm:m-6 w-full h-full max-w-xs"
+          ></ProfileImageComp>
         </div>
         <span class="text-xl font-bold">
           {{ user.visiblename }} @{{ user.username }}

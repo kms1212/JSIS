@@ -15,5 +15,5 @@ if [ $? -ne 0 ]; then
 fi
 docker buildx use xbuilder
 docker buildx inspect --bootstrap
-docker buildx build --platform linux/amd64 -t $DOCKER_REGISTRY_HOST/jsis-backend:latest --push jsis-docker
-docker buildx build --platform linux/amd64 -t $DOCKER_REGISTRY_HOST/jsis-frontend:latest --push webapp-docker
+docker buildx build --platform linux/amd64 -t "$DOCKER_REGISTRY_HOST/jsis-backend:latest" --push jsis-docker
+docker buildx build --platform linux/amd64 -t "$DOCKER_REGISTRY_HOST/jsis-frontend:latest" --push webapp-docker

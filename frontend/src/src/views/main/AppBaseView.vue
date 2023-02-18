@@ -75,7 +75,10 @@ export default {
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'Main',
                 }"
               >
-                <vue-feather type="home" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <vue-feather
+                  type="home"
+                  class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6"
+                />
                 <span class="hidden lg:block">메인</span>
               </RouterLink>
             </li>
@@ -89,7 +92,10 @@ export default {
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'ClassMain',
                 }"
               >
-                <vue-feather type="briefcase" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <vue-feather
+                  type="briefcase"
+                  class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6"
+                />
                 <span class="hidden lg:block">학급</span>
               </RouterLink>
             </li>
@@ -103,7 +109,10 @@ export default {
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'MealMain',
                 }"
               >
-                <vue-feather type="coffee" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <vue-feather
+                  type="coffee"
+                  class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6"
+                />
                 <span class="hidden lg:block">급식정보</span>
               </RouterLink>
             </li>
@@ -118,7 +127,10 @@ export default {
                     currentRoute !== 'CommunityMain',
                 }"
               >
-                <vue-feather type="message-circle" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <vue-feather
+                  type="message-circle"
+                  class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6"
+                />
                 <span class="hidden lg:block">커뮤니티</span>
               </RouterLink>
             </li>
@@ -132,7 +144,10 @@ export default {
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'HQMain',
                 }"
               >
-                <vue-feather type="users" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <vue-feather
+                  type="users"
+                  class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6"
+                />
                 <span class="hidden lg:block">학생회</span>
               </RouterLink>
             </li>
@@ -146,7 +161,10 @@ export default {
                   'mr-3 text-gray-600 rounded-md': currentRoute !== 'ConvMain',
                 }"
               >
-                <vue-feather type="book" class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6" />
+                <vue-feather
+                  type="book"
+                  class="lg:mr-2 w-7 h-7 lg:w-6 lg:h-6"
+                />
                 <span class="hidden lg:block">중앙하우스/탑서점</span>
               </RouterLink>
             </li>
@@ -164,7 +182,10 @@ export default {
                 </span>
               </p>
             </RouterLink>
-            <div @click="logout" class="p-2 pb-1 rounded hover:bg-gray-200 text-center">
+            <div
+              @click="logout"
+              class="p-2 pb-1 rounded hover:bg-gray-200 text-center"
+            >
               <vue-feather type="log-out"></vue-feather>
             </div>
           </div>

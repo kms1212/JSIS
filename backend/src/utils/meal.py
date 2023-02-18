@@ -3,6 +3,9 @@ Utility functions for school meal database.
 
 Functions
 ---------
+:func:`filter_menuname`: Filter the menu name.
+:func:`get_allergyinfo`: Get the allergy information.
+:func:`get_meal`: Get the meal information.
 
 Revision History
 ----------------
@@ -11,13 +14,18 @@ Revision History
 
 import re
 import requests
-from mealapi.models import Meal, MealTime
-from jsis.settings import NEIS_API_KEY
-
-OE_CODE = 'C10'
-SC_CODE = '7150107'
+from mealapi.models import Meal
+from jsis.settings import NEIS_API_KEY, OE_CODE, SC_CODE
 
 def filter_menuname(menuname):
+    """
+    Filter the menu name.
+
+    Parameters / Return Values
+    --------------------------
+    :param menuname: Menu name. (ex. "맛살튀김&칠리소스(중앙)  (1.5.6.8.12.13.)")
+    :returns: Filtered menu name. (ex. "맛살튀김&칠리소스(중앙)")
+    """
     string = ''
 
     for idx, char in enumerate(menuname):
@@ -39,7 +47,7 @@ def filter_menuname(menuname):
 
         if string[-1] == '\n':
             string = string[:-1]
-    
+
     while True:
         if len(string) > 0 and string[-1] == ' ':
             string = string[:-1]
@@ -50,8 +58,16 @@ def filter_menuname(menuname):
 
 
 def get_allergyinfo(menuname):
+    """
+    Get the allergy information.
+
+    Parameters / Return Values
+    --------------------------
+    :param menuname: Menu name. (ex. "맛살튀김&칠리소스(중앙)  (1.5.6.8.12.13.)")
+    :returns: Allergy information. (ex. [1, 5, 6, 8, 12, 13])
+    """
     allergyinfo = re.findall(r'[0-9].{0,1}\.', menuname)
-    
+
     return list(map(lambda str: int(str[:-1]), allergyinfo))
 
 
@@ -128,6 +144,3 @@ def request_meal(serve_date, meal_time):
             )
 
     return None
-
-
-

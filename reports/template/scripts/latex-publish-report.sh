@@ -11,4 +11,4 @@ xelatex report.tex
 
 # Copy
 DATE=$(date +%Y%m%dT%H%M%S)
-cp report.pdf ../../report-$DATE.pdf
+cp report.pdf "../../report-$DATE.pdf"

@@ -226,3 +226,9 @@ sentry_sdk.init(
 
 # NEIS API
 NEIS_API_KEY = env.NEIS_API_KEY
+
+# Education Office Code
+OE_CODE = 'C10'
+
+# School Code
+SC_CODE = '7150107'

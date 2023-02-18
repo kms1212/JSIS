@@ -4,4 +4,4 @@ set -e
 
 cd "${0%/*}"
 
-sudo docker compose exec $1 bash
+sudo docker compose exec "$1" bash
