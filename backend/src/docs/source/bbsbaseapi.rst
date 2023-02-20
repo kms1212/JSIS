@@ -1,61 +1,61 @@
-mainbbsapi package
+bbsbaseapi package
 ==================
 
 Submodules
 ----------
 
-mainbbsapi.admin module
+bbsbaseapi.admin module
 -----------------------
 
-.. automodule:: mainbbsapi.admin
+.. automodule:: bbsbaseapi.admin
    :members:
    :undoc-members:
    :show-inheritance:
 
-mainbbsapi.apps module
+bbsbaseapi.apps module
 ----------------------
 
-.. automodule:: mainbbsapi.apps
+.. automodule:: bbsbaseapi.apps
    :members:
    :undoc-members:
    :show-inheritance:
 
-mainbbsapi.models module
+bbsbaseapi.models module
 ------------------------
 
-.. automodule:: mainbbsapi.models
+.. automodule:: bbsbaseapi.models
    :members:
    :undoc-members:
    :show-inheritance:
 
-mainbbsapi.serializers module
+bbsbaseapi.serializers module
 -----------------------------
 
-.. automodule:: mainbbsapi.serializers
+.. automodule:: bbsbaseapi.serializers
    :members:
    :undoc-members:
    :show-inheritance:
 
-mainbbsapi.tests module
+bbsbaseapi.tests module
 -----------------------
 
-.. automodule:: mainbbsapi.tests
+.. automodule:: bbsbaseapi.tests
    :members:
    :undoc-members:
    :show-inheritance:
 
-mainbbsapi.urls module
+bbsbaseapi.urls module
 ----------------------
 
-.. automodule:: mainbbsapi.urls
+.. automodule:: bbsbaseapi.urls
    :members:
    :undoc-members:
    :show-inheritance:
 
-mainbbsapi.views module
+bbsbaseapi.views module
 -----------------------
 
-.. automodule:: mainbbsapi.views
+.. automodule:: bbsbaseapi.views
    :members:
    :undoc-members:
    :show-inheritance:
@@ -63,7 +63,7 @@ mainbbsapi.views module
 Module contents
 ---------------
 
-.. automodule:: mainbbsapi
+.. automodule:: bbsbaseapi
    :members:
    :undoc-members:
    :show-inheritance:

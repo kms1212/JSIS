@@ -28,6 +28,14 @@ mealapi.models module
    :undoc-members:
    :show-inheritance:
 
+mealapi.serializers module
+--------------------------
+
+.. automodule:: mealapi.serializers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 mealapi.tests module
 --------------------
 

@@ -5,11 +5,12 @@ src
    :maxdepth: 4
 
    authapi
+   bbsbaseapi
    classapi
    communityapi
    fileapi
    jsis
-   mainbbsapi
    manage
    mealapi
+   noticeapi
    utils
