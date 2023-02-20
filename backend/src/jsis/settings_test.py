@@ -13,8 +13,6 @@ import os
 
 from pathlib import Path
 from corsheaders.defaults import default_headers
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 from django.core.management.utils import get_random_secret_key
 from django.utils import timezone
 
