@@ -48,7 +48,7 @@ def run_shell_scripts(script_nm, script, verbose):
             spin.ok("✔")
 
         if script_nm != "create_report":
-            with open("reports/template/publish-report/data/" + script_nm + ".txt"
+            with open("reports/template/publish-report/data/" + script_nm + ".txt",
                       "w",
                       encoding="utf8") as file:
                 file.write(output)

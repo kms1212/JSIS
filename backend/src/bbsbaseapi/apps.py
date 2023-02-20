@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MainbbsapiConfig(AppConfig):
+class BbsbaseapiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'mainbbsapi'
+    name = 'bbsbaseapi'

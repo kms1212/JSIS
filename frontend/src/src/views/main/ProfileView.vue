@@ -48,19 +48,12 @@ export default {
     currentRoute() {
       return this.$route.name;
     },
-    getJoinedDate() {
-      if (this.isSelfProfile) {
-        return getSimplifiedTimestamp(this.user.date_joined);
-      }
-      return null;
-    },
-    getLastLoginDate() {
-      if (this.isSelfProfile) {
-        return getSimplifiedTimestamp(this.user.date_lastlogin);
-      }
-      return null;
-    },
   },
+  methods: {
+    simplifyTimestamp(timestamp) {
+      return getSimplifiedTimestamp(timestamp);
+    },
+  }
 };
 </script>
 
@@ -112,8 +105,8 @@ export default {
           <li class="rounded-md bg-gray-100 p-3 text-sm">
             {{ !!user.description ? user.description : "설명이 없습니다." }}
           </li>
-          <li>가입: {{ getJoinedDate }}</li>
-          <li>마지막 로그인: {{ getLastLoginDate }}</li>
+          <li>가입: {{ simplifyTimestamp(user.date_joined) }}</li>
+          <li>마지막 로그인: {{ simplifyTimestamp(user.date_lastlogin) }}</li>
           <li>
             <div class="flex justify-between mb-1">
               <span class="text-base">8GB 중 2GB 사용</span>

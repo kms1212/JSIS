@@ -14,13 +14,12 @@ Revision History
 * 2020-02-18: Documented by @kms1212.
 """
 
-from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 from django.utils import timezone
 
-from rest_framework import generics, status, permissions
+from rest_framework import generics, status, permissions, serializers
 from rest_framework.response import Response
 
 from knox.models import AuthToken
@@ -62,10 +61,10 @@ class LoginAPI(generics.GenericAPIView):
 
         try:
             serializer.is_valid(raise_exception=True)
-        except ValidationError as error:
+        except serializers.ValidationError as error:
             return Response(
                 {
-                    "message": error.messages
+                    "message": error.detail['non_field_errors']
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -112,10 +111,10 @@ class RegisterAPI(generics.GenericAPIView):
 
         try:
             serializer.is_valid(raise_exception=True)
-        except ValidationError as error:
+        except serializers.ValidationError as error:
             return Response(
                 {
-                    "message": error.messages
+                    "message": error.detail['non_field_errors']
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )

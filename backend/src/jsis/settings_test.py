@@ -15,11 +15,10 @@ from pathlib import Path
 from corsheaders.defaults import default_headers
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from django.core.management.utils import get_random_secret_key
+from django.utils import timezone
 
 from . import env
-
-SERVER_DOMAIN = env.SERVER_DOMAIN
-FRONTEND_DOMAIN = env.FRONTEND_DOMAIN
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.DJANGO_SECRET_KEY
+SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -63,10 +62,11 @@ INSTALLED_APPS = [
     'six',
 
     'authapi',
+    'bbsbaseapi',
     'classapi',
     'communityapi',
     'fileapi',
-    'mainbbsapi',
+    'noticeapi',
     'mealapi',
 ]
 
@@ -153,6 +153,11 @@ LOGOUT_REDIRECT_URL = '/authapi/login/'
 
 LOGIN_URL = '/authapi/login/'
 
+REST_KNOX = {
+    'TOKEN_TTL': timezone.timedelta(days=1),
+    'AUTO_REFRESH': True,
+}
+
 # Email validation
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -199,7 +204,7 @@ MEDIA_ROOT = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = [SERVER_DOMAIN]
+CSRF_TRUSTED_ORIGINS = []
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -207,18 +212,6 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
     "sentry-trace",
     "baggage"
 ]
-
-
-# Sentry Integration
-
-SENTRY_DSN = env.SENTRY_DSN
-
-sentry_sdk.init(
-    dsn=SENTRY_DSN,
-    integrations=[DjangoIntegration()],
-    traces_sample_rate=1.0,
-    send_default_pii=True
-)
 
 # NEIS API
 NEIS_API_KEY = env.NEIS_API_KEY

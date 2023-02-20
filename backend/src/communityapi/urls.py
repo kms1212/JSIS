@@ -1,9 +1,8 @@
 from django.urls import path
-from .views import ArticleAPI, ArticleLikeAPI
+from .views import PostAPI
 
 app_name = 'communityapi'  # pylint: disable=invalid-name
 
 urlpatterns = [
-    path('article/', ArticleAPI.as_view(), name='article'),
-    path('like/', ArticleLikeAPI.as_view(), name='like'),
+    path('post/', PostAPI.as_view(), name='article'),
 ]

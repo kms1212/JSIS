@@ -8,7 +8,8 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authapi.urls')),
-    path('mainbbs/', include('mainbbsapi.urls')),
+    path('notice/', include('noticeapi.urls')),
+    path('bbsbase/', include('bbsbaseapi.urls')),
     path('file/', include('fileapi.urls')),
     path('class/', include('classapi.urls')),
     path('meal/', include('mealapi.urls')),

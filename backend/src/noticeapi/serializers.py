@@ -1,15 +1,15 @@
 from rest_framework import serializers
 
 from authapi.serializers import UserSerializer
-from .models import Article
+from .models import Notice
 
-class ArticleSerializer(serializers.ModelSerializer):
+class NoticeSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     likes_count = serializers.SerializerMethodField()
     replies_count = serializers.SerializerMethodField()
 
     class Meta:
-        model = Article
+        model = Notice
         fields = ('title',
                   'document',
                   'author',
@@ -27,13 +27,13 @@ class ArticleSerializer(serializers.ModelSerializer):
         return obj.replies.count()
 
 
-class ArticleListSerializer(serializers.ModelSerializer):
+class NoticeListSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     likes_count = serializers.SerializerMethodField()
     replies_count = serializers.SerializerMethodField()
 
     class Meta:
-        model = Article
+        model = Notice
         fields = ('articleid',
                   'title',
                   'author',
@@ -47,3 +47,4 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
     def get_replies_count(self, obj):
         return obj.replies.count()
+

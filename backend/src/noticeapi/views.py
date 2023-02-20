@@ -6,17 +6,17 @@ from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 
 from utils.search import advanced_search
-from .serializers import ArticleSerializer, ArticleListSerializer
-from .models import Article
+from .serializers import NoticeSerializer, NoticeListSerializer
+from .models import Notice, Reply
 
 # Create your views here.
-class ArticleAPI(generics.GenericAPIView):
+class NoticeAPI(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = ArticleSerializer
-    queryset = Article.objects.all()
+    serializer_class = NoticeSerializer
+    queryset = Notice.objects.all()
 
     class OrderBy(enum.Enum):
-        ID = 'articleid'
+        ID = 'noticeid'
         TITLE = 'title'
         CREATED = 'created'
 
@@ -45,10 +45,10 @@ class ArticleAPI(generics.GenericAPIView):
 
 
     def get(self, request):
-        # When articleid is provided, return the article with that id
-        articleid = request.GET.get('articleid')
+        # When noticeid is provided, return the article with that id
+        noticeid = request.GET.get('noticeid')
 
-        # When articleid is not provided, return article list
+        # When noticeid is not provided, return article list
         # Listing parameters:
         #   - page: page number
         #   - count: number of articles per page
@@ -59,11 +59,11 @@ class ArticleAPI(generics.GenericAPIView):
         order = request.GET.get('order')
         search = request.GET.get('search')
 
-        if articleid:
+        if noticeid:
             # Return article
             try:
-                article = Article.objects.get(articleid=articleid, deleted=False)
-            except Article.DoesNotExist:
+                article = Notice.objects.get(noticeid=noticeid, deleted=False)
+            except Notice.DoesNotExist:
                 return Response(
                     {
                         "message": "Article not found"
@@ -73,7 +73,7 @@ class ArticleAPI(generics.GenericAPIView):
 
             article.views += 1
             article.save()
-            serializer = ArticleSerializer(article)
+            serializer = NoticeSerializer(article)
             return Response(serializer.data)
 
         # Return article list
@@ -87,7 +87,7 @@ class ArticleAPI(generics.GenericAPIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        articles = Article.objects.filter(deleted=False).order_by(orderdirection.value +
+        articles = Notice.objects.filter(deleted=False).order_by(orderdirection.value +
                                                                   orderby.value)
 
         if search:
@@ -95,7 +95,7 @@ class ArticleAPI(generics.GenericAPIView):
 
         paginator = Paginator(articles, count)
         articles = paginator.get_page(page)
-        serializer = ArticleListSerializer(articles, many=True)
+        serializer = NoticeListSerializer(articles, many=True)
 
         return Response({
             "page": int(page),
@@ -105,40 +105,3 @@ class ArticleAPI(generics.GenericAPIView):
             "list": serializer.data
         })
 
-
-class ArticleLikeAPI(generics.GenericAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-
-    def post(self, request):
-        articleid = request.GET.get('articleid')
-
-        try:
-            article = Article.objects.get(articleid=articleid, deleted=False)
-        except Article.DoesNotExist:
-            return Response(
-                {
-                    "message": "Article not found"
-                },
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-        if article.likes.filter(pk=request.user.pk).exists():
-            article.likes.remove(request.user)
-            article.save()
-            return Response(
-                {
-                    'status': 'UNLIKED',
-                    'likes': article.likes.count()
-                },
-                status=status.HTTP_200_OK
-            )
-
-        article.likes.add(request.user)
-        article.save()
-        return Response(
-            {
-                'status': 'LIKED',
-                'likes': article.likes.count()
-            },
-            status=status.HTTP_200_OK
-        )

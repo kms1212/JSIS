@@ -1,34 +1,21 @@
 from django.db import models
 from authapi.models import UserAccount, File
+from bbsbaseapi.models import Reply
 
 
-class Reply(models.Model):
-    replyid = models.AutoField(primary_key=True)
-    author = models.ForeignKey(UserAccount,
-                               on_delete=models.CASCADE, null=True,
-                               related_name='community_%(class)s_author')
-    created = models.DateTimeField(auto_now_add=True, null=True)
-    modified = models.BooleanField(default=False)
-    text = models.TextField()
-    replies = models.ManyToManyField('self', blank=True)
-
-    def __str__(self):
-        return '@' + self.author.username + ': ' + self.text[:20]
-
-
-class ArticleTypes(models.IntegerChoices):
+class PostTypes(models.IntegerChoices):
     INSTA = 0, '사진'
     DOCUMENT = 1, '문서'
 
 
-class Article(models.Model):
-    articleid = models.AutoField(primary_key=True)
+class Post(models.Model):
+    postid = models.AutoField(primary_key=True)
     author = models.ForeignKey(UserAccount,
                                on_delete=models.CASCADE,
                                related_name='community_%(class)s_author',
                                null=True)
     title = models.CharField(max_length=255, null=True)
-    type = models.IntegerField(default=ArticleTypes.INSTA, choices=ArticleTypes.choices)
+    type = models.IntegerField(default=PostTypes.INSTA, choices=PostTypes.choices)
     document = models.TextField()
     views = models.IntegerField(default=0)
     files = models.ManyToManyField(File,

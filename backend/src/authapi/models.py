@@ -64,12 +64,6 @@ class UserAccountManager(BaseUserManager):
         * 2020-02-??: Created by @kms1212.
         * 2020-02-18: Documented by @kms1212.
         """
-        if not email:
-            raise ValueError('Users must have an email address')
-        if not username:
-            raise ValueError('Users must have a username')
-        if not visiblename:
-            raise ValueError('Users must have a visible name')
 
         user = self.model(
             username=username,
@@ -174,7 +168,7 @@ class UserAccount(AbstractBaseUser):
         """
         Model stringify
         """
-        return str(self.username)
+        return f'{self.studentid} {self.visiblename} @{self.username}'
 
     def has_perm(self, _perm, _obj=None):
         """

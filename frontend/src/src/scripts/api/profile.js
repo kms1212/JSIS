@@ -1,5 +1,5 @@
 import { instance } from "@/scripts/api/axios.js";
-import { useAuthStore } from "@/scripts/api/axios.js";
+import { useAuthStore } from "@/stores/auth.js"
 
 export async function getProfile(options = {}) {
   if (options.userid) {

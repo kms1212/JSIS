@@ -24,7 +24,7 @@ from django.core.validators import validate_email
 from rest_framework import serializers
 
 import utils.file as fileutils
-from communityapi.models import Article, Reply
+from communityapi.models import Post, Reply
 from .models import UserAccount
 
 
@@ -90,8 +90,8 @@ class UserSerializer(serializers.ModelSerializer):
     :attrib studentid:    Student ID
     :attrib profileimage: Profile image
     :attrib description:  User description
-    :attrib post_count:       User post count
-    :attrib reply_count:      User reply count
+    :attrib post_count:   User post count
+    :attrib reply_count:  User reply count
 
     Revision History
     ----------------
@@ -106,7 +106,7 @@ class UserSerializer(serializers.ModelSerializer):
         """
         Internal method for getting user post count
         """
-        return Article.objects.filter(author=obj).count()
+        return Post.objects.filter(author=obj).count()
 
     def get_reply_count(self, obj):
         """
@@ -165,7 +165,7 @@ class DetailedUserSerializer(serializers.ModelSerializer):
         """
         Internal method for getting user post count
         """
-        return Article.objects.filter(author=obj).count()
+        return Post.objects.filter(author=obj).count()
 
     def get_reply_count(self, obj):
         """
