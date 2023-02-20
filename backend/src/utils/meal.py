@@ -38,7 +38,7 @@ def filter_menuname(menuname):
     if string == '':
         string = menuname
 
-    if len(string) > 0:
+    if string:
         if string[-1] == '(':
             string = string[:-1]
 
@@ -49,7 +49,7 @@ def filter_menuname(menuname):
             string = string[:-1]
 
     while True:
-        if len(string) > 0 and string[-1] == ' ':
+        if string and string[-1] == ' ':
             string = string[:-1]
         else:
             break

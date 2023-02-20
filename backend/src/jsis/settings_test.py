@@ -9,10 +9,16 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
 
 from pathlib import Path
-import os
+from corsheaders.defaults import default_headers
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 from django.core.management.utils import get_random_secret_key
+from django.utils import timezone
+
+from . import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,10 +62,11 @@ INSTALLED_APPS = [
     'six',
 
     'authapi',
+    'bbsbaseapi',
     'classapi',
     'communityapi',
     'fileapi',
-    'mainbbsapi',
+    'noticeapi',
     'mealapi',
 ]
 
@@ -146,6 +153,11 @@ LOGOUT_REDIRECT_URL = '/authapi/login/'
 
 LOGIN_URL = '/authapi/login/'
 
+REST_KNOX = {
+    'TOKEN_TTL': timezone.timedelta(days=1),
+    'AUTO_REFRESH': True,
+}
+
 # Email validation
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -156,8 +168,8 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST_USER = env.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = env.EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
@@ -192,9 +204,20 @@ MEDIA_ROOT = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = [ ]
+CSRF_TRUSTED_ORIGINS = []
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "sentry-trace",
+    "baggage"
+]
+
 # NEIS API
-NEIS_API_KEY = os.environ.get('NEIS_API_KEY', '')
+NEIS_API_KEY = env.NEIS_API_KEY
+
+# Education Office Code
+OE_CODE = 'C10'
+
+# School Code
+SC_CODE = '7150107'

@@ -16,15 +16,16 @@ Revision History
 """
 # pylint: enable=line-too-long
 
-from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
+from rest_framework import serializers
+
 import utils.file as fileutils
+from communityapi.models import Post, Reply
 from .models import UserAccount
-from communityapi.models import Article, Reply
 
 
 class LoginSerializer(serializers.Serializer):
@@ -89,8 +90,8 @@ class UserSerializer(serializers.ModelSerializer):
     :attrib studentid:    Student ID
     :attrib profileimage: Profile image
     :attrib description:  User description
-    :attrib post_count:       User post count
-    :attrib reply_count:      User reply count
+    :attrib post_count:   User post count
+    :attrib reply_count:  User reply count
 
     Revision History
     ----------------
@@ -105,7 +106,7 @@ class UserSerializer(serializers.ModelSerializer):
         """
         Internal method for getting user post count
         """
-        return Article.objects.filter(author=obj).count()
+        return Post.objects.filter(author=obj).count()
 
     def get_reply_count(self, obj):
         """
@@ -164,7 +165,7 @@ class DetailedUserSerializer(serializers.ModelSerializer):
         """
         Internal method for getting user post count
         """
-        return Article.objects.filter(author=obj).count()
+        return Post.objects.filter(author=obj).count()
 
     def get_reply_count(self, obj):
         """
@@ -293,7 +294,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         if not email[:email.find('@') - 1].isnumeric():
             errors.append('이메일 사용자명이 학번이 아닙니다. 가입을 원할 경우 관리자에게 문의하세요.')
 
-        if len(errors) > 0:
+        if errors:
             raise serializers.ValidationError(errors)
 
         return attrs
@@ -301,7 +302,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """
         Register user with given validated attributes
-        
+
         Parameters / Return Values
         --------------------------
         :param validated_data: Validated serializer attribute

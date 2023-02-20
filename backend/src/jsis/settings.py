@@ -15,6 +15,7 @@ from pathlib import Path
 from corsheaders.defaults import default_headers
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from django.utils import timezone
 
 from . import env
 
@@ -32,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env.DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -63,10 +64,11 @@ INSTALLED_APPS = [
     'six',
 
     'authapi',
+    'bbsbaseapi',
     'classapi',
     'communityapi',
     'fileapi',
-    'mainbbsapi',
+    'noticeapi',
     'mealapi',
 ]
 
@@ -157,6 +159,10 @@ LOGOUT_REDIRECT_URL = '/authapi/login/'
 
 LOGIN_URL = '/authapi/login/'
 
+REST_KNOX = {
+    'TOKEN_TTL': timezone.timedelta(days=10),
+}
+
 # Email validation
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -203,7 +209,7 @@ MEDIA_ROOT = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = [ SERVER_DOMAIN ]
+CSRF_TRUSTED_ORIGINS = [SERVER_DOMAIN]
 
 CORS_ORIGIN_ALLOW_ALL = True
 

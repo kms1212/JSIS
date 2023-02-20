@@ -14,13 +14,12 @@ Revision History
 * 2020-02-18: Documented by @kms1212.
 """
 
-from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 from django.utils import timezone
 
-from rest_framework import generics, status, permissions
+from rest_framework import generics, status, permissions, serializers
 from rest_framework.response import Response
 
 from knox.models import AuthToken
@@ -62,10 +61,10 @@ class LoginAPI(generics.GenericAPIView):
 
         try:
             serializer.is_valid(raise_exception=True)
-        except ValidationError as error:
+        except serializers.ValidationError as error:
             return Response(
                 {
-                    "message": error.messages
+                    "message": error.detail['non_field_errors']
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -112,10 +111,10 @@ class RegisterAPI(generics.GenericAPIView):
 
         try:
             serializer.is_valid(raise_exception=True)
-        except ValidationError as error:
+        except serializers.ValidationError as error:
             return Response(
                 {
-                    "message": error.messages
+                    "message": error.detail['non_field_errors']
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -124,14 +123,16 @@ class RegisterAPI(generics.GenericAPIView):
 
         token = account_activation_token.make_token(user)
         html_msg = render_to_string('authapi/email_template.html', {
-                'server_domain': SERVER_DOMAIN,
-                'token': token,
-                'uid': user.pk,
-            })
+            'server_domain': SERVER_DOMAIN,
+            'token': token,
+            'uid': user.pk,
+        })
 
-        email = EmailMultiAlternatives('[JSIS] 부산중앙고등학교 재학생인트라넷서비스 회원가입 인증 메일',
+        email = EmailMultiAlternatives(
+            '[JSIS] 부산중앙고등학교 재학생인트라넷서비스 회원가입 인증 메일',
             strip_tags(html_msg),
-            to=[user.email])
+            to=[user.email]
+        )
         email.attach_alternative(html_msg, 'text/html')
         email.send()
 
@@ -160,7 +161,7 @@ class UserAPI(generics.GenericAPIView):
     * 2020-02-??: Created by @kms1212.
     * 2020-02-18: Documented by @kms1212.
     """
-    permission_classes = [ permissions.IsAuthenticated, ]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         """
@@ -173,7 +174,8 @@ class UserAPI(generics.GenericAPIView):
             user_serialized = UserSerializer(user, context=self.get_serializer_context()).data
         else:
             user = request.user
-            user_serialized = DetailedUserSerializer(user, context=self.get_serializer_context()).data
+            user_serialized = DetailedUserSerializer(user,
+                                                     context=self.get_serializer_context()).data
 
         return Response(user_serialized)
 

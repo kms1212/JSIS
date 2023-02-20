@@ -1,14 +1,17 @@
+from django.utils import timezone
+
 from rest_framework import generics, permissions
 from rest_framework.response import Response
-from django.utils import timezone
+
 import requests
+
 from utils.meal import request_meal
 from .models import Meal, MealTime
 from .serializers import MealSerializer
 
 # Create your views here.
 class MealAPI(generics.GenericAPIView):
-    permission_classes = [ permissions.IsAuthenticated ]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         serve_date = request.GET.get('mdate', timezone.now().strftime('%y%m%d'))

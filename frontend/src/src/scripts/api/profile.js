@@ -1,5 +1,5 @@
 import { instance } from "@/scripts/api/axios.js";
-import { useAuthStore } from "@/scripts/api/axios.js";
+import { useAuthStore } from "@/stores/auth.js";
 
 export async function getProfile(options = {}) {
   if (options.userid) {
@@ -10,7 +10,7 @@ export async function getProfile(options = {}) {
       },
     });
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       return response.data;
     }
   } else {
@@ -19,7 +19,7 @@ export async function getProfile(options = {}) {
     if (!options.cache || !authStore.getProfile) {
       const response = await instance.get("/auth/user/");
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         authStore.setProfile(response.data);
       }
     }

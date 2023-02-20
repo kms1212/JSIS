@@ -12,10 +12,13 @@
   },
   "dependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.2",
+    "js-cookie": "^3.0.1",
     "marked-emoji": "^1.0.1",
     "octokit": "^2.0.14",
+    "pinia-plugin-persistedstate": "^3.0.2",
     "vite-plugin-top-level-await": "^1.2.4",
     "vue": "^3.2.47",
+    "vue-cookies": "^1.8.2",
     "vue-router": "^4.1.6",
     "vue3-carousel": "^0.2.9"
   },

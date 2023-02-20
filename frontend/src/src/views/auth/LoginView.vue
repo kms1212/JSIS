@@ -32,25 +32,25 @@ export default {
 
 <template>
   <div class="space-y-6 py-8 text-base leading-7 text-black">
-    <h1 class="text-3xl font-extrabold text-center">로그인</h1>
+    <h1 class="text-center text-3xl font-extrabold">로그인</h1>
     <div>
       <ul class="space-y-5">
-        <li class="flex items-start flex-col space-y-2">
-          <div class="flex items-center w-full">
+        <li class="flex flex-col items-start space-y-2">
+          <div class="flex w-full items-center">
             <input
               @keyup.enter="login"
-              class="w-full border-b focus:border-b-blue-600 focus:border-b-2 transition-all outline-none"
+              class="w-full border-b outline-none transition-all focus:border-b-2 focus:border-b-blue-600"
               type="text"
               placeholder="아이디"
               v-model="username"
             />
           </div>
         </li>
-        <li class="flex items-start flex-col space-y-2">
-          <div class="flex items-center w-full">
+        <li class="flex flex-col items-start space-y-2">
+          <div class="flex w-full items-center">
             <input
               @keyup.enter="login"
-              class="w-full border-b focus:border-b-blue-600 focus:border-b-2 transition-all outline-none"
+              class="w-full border-b outline-none transition-all focus:border-b-2 focus:border-b-blue-600"
               type="password"
               placeholder="비밀번호"
               v-model="password"
@@ -63,14 +63,14 @@ export default {
         <li class="flex items-center">
           <button
             @click="login"
-            class="py-2 px-4 rounded-lg shadow-md bg-blue-600 text-white w-full"
+            class="w-full rounded-lg bg-blue-600 py-2 px-4 text-white shadow-md"
           >
             확인
           </button>
         </li>
       </ul>
     </div>
-    <div class="pt-8 text-base font-semibold leading-none grid grid-cols-2">
+    <div class="grid grid-cols-2 pt-8 text-base font-semibold leading-none">
       <p>JSIS</p>
       <RouterLink class="text-right" to="/auth/register">회원가입</RouterLink>
     </div>

@@ -9,12 +9,12 @@ export async function getMeal(options = {}) {
       },
     });
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       return response.data;
     }
   } else {
     const response = await instance.get("/meal/");
-    if (response.status == 200) {
+    if (response.status === 200) {
       return response.data;
     }
   }

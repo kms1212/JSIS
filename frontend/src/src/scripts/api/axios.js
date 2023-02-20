@@ -1,6 +1,4 @@
 import axios from "axios";
-import { defineStore } from "pinia";
-import { useStorage } from "@vueuse/core";
 import { removeToken, removeProfile } from "@/scripts/api/auth.js";
 import Router from "@/router/index.js";
 
@@ -25,7 +23,7 @@ instance.interceptors.response.use(
   }
 );
 
-function updateRequestHeader(token) {
+export function updateRequestHeader(token) {
   if (token) {
     instance.defaults.headers.common["Authorization"] = `Token ${token}`;
   } else {
@@ -33,29 +31,6 @@ function updateRequestHeader(token) {
   }
 }
 
-export const useAuthStore = defineStore("auth", {
-  state: () => ({
-    token: useStorage("token", "", localStorage),
-    profile: null,
-  }),
-  getters: {},
-  actions: {
-    setToken(newToken) {
-      if (newToken) {
-        this.$patch({ token: newToken });
-        updateRequestHeader(this.token);
-      } else {
-        this.$patch({ token: "" });
-        updateRequestHeader("");
-      }
-    },
-    setProfile(newProfile) {
-      this.$patch({ profile: newProfile });
-    },
-  },
-});
-
 export default {
   instance,
-  useAuthStore,
 };

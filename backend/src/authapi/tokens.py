@@ -32,4 +32,4 @@ class TokenGenerator(PasswordResetTokenGenerator):
                 text_type(timestamp) +
                 text_type(user.username)) + text_type(user.is_active)
 
-account_activation_token = TokenGenerator()
+account_activation_token = TokenGenerator()  # pylint: disable=invalid-name

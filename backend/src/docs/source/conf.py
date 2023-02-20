@@ -26,7 +26,7 @@ author = 'kms1212'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['myst_parser', 'sphinx.ext.autodoc']
+extensions = ['myst_parser', 'sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx_design']
 
 source_suffix = {
     '.rst': 'restructuredtext',
@@ -36,6 +36,8 @@ source_suffix = {
 
 templates_path = ['_templates']
 exclude_patterns = []
+
+intersphinx_mapping = {}
 
 language = 'en'
 

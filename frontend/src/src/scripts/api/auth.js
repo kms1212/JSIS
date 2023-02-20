@@ -1,4 +1,5 @@
-import { instance, useAuthStore } from "@/scripts/api/axios.js";
+import { instance } from "@/scripts/api/axios.js";
+import { useAuthStore } from "@/stores/auth.js";
 import Router from "@/router/index.js";
 
 export async function login(username, password) {
@@ -8,7 +9,7 @@ export async function login(username, password) {
     password,
   });
 
-  if (response.status == 200) {
+  if (response.status === 200) {
     authStore.setToken(response.data.token);
 
     await authStore.profile;
@@ -40,7 +41,7 @@ export function removeProfile() {
 
 export function restoreToken() {
   const authStore = useAuthStore();
-  authStore.setToken(authStore.token);
+  authStore.setToken(authStore.getToken());
 }
 
 export default {

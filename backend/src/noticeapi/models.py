@@ -1,24 +1,10 @@
 from django.db import models
 from authapi.models import UserAccount, File
+from bbsbaseapi.models import Reply
 
 # Create your models here.
-class Reply(models.Model):
-    replyid = models.AutoField(primary_key=True)
-    author = models.ForeignKey(UserAccount,
-                               on_delete=models.CASCADE,
-                               null=True,
-                               related_name='mainbbs_%(class)s_author')
-    created = models.DateTimeField(auto_now_add=True, null=True)
-    modified = models.BooleanField(default=False)
-    text = models.TextField()
-    replies = models.ManyToManyField('self', blank=True)
-
-    def __str__(self):
-        return '@' + self.author.username + ': ' + self.text[:20]
-
-
-class Article(models.Model):
-    articleid = models.AutoField(primary_key=True)
+class Notice(models.Model):
+    noticeid = models.AutoField(primary_key=True)
     author = models.ForeignKey(UserAccount,
                                on_delete=models.CASCADE,
                                related_name='mainbbs_%(class)s_author',
@@ -50,7 +36,7 @@ class CardNotice(models.Model):
                               related_name='mainbbs_%(class)s_image', null=True)
     alt = models.TextField()
     priority = models.IntegerField()
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True)
+    notice = models.ForeignKey(Notice, on_delete=models.CASCADE, null=True)
     until = models.DateTimeField()
 
     def __str__(self):

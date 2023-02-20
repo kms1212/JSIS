@@ -1,5 +1,6 @@
-set -e
+#!/bin/bash
 
+set -e
 
 echo ===========================================
 echo = 1. Network Connection Check

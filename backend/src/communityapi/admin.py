@@ -1,5 +1,5 @@
 from django.contrib import admin
-from communityapi.models import Article
+from communityapi.models import Post
 
 # Register your models here.
-admin.site.register(Article)
+admin.site.register(Post)

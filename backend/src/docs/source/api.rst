@@ -1,4 +1,8 @@
-API Documentation
+API Specification
 =================
+
+
+.. toctree::
+    authapi <api/authapi>
 
 

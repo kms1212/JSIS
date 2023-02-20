@@ -2,25 +2,26 @@ from rest_framework import serializers
 
 from authapi.serializers import UserSerializer
 
-from .models import Article
+from .models import Post
 
-class ArticleSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     likes_count = serializers.SerializerMethodField()
     replies_count = serializers.SerializerMethodField()
 
     class Meta:
-        model = Article
-        fields = ('title',
-                 'document',
-                 'author',
-                 'created',
-                 'modified',
-                 'views',
-                 'files',
-                 'likes_count',
-                 'replies_count',
-                 'type')
+        model = Post
+        fields = ('postid',
+                  'title',
+                  'document',
+                  'author',
+                  'created',
+                  'modified',
+                  'views',
+                  'files',
+                  'likes_count',
+                  'replies_count',
+                  'type')
 
     def get_likes_count(self, obj):
         return obj.likes.count()
@@ -29,14 +30,14 @@ class ArticleSerializer(serializers.ModelSerializer):
         return obj.replies.count()
 
 
-class ArticleListSerializer(serializers.ModelSerializer):
+class PostListSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     likes_count = serializers.SerializerMethodField()
     replies_count = serializers.SerializerMethodField()
 
     class Meta:
-        model = Article
-        fields = ('articleid',
+        model = Post
+        fields = ('postid',
                   'title',
                   'author',
                   'created',
