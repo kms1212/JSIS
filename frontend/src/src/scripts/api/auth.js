@@ -1,5 +1,5 @@
 import { instance } from "@/scripts/api/axios.js";
-import { useAuthStore } from "@/stores/auth.js"
+import { useAuthStore } from "@/stores/auth.js";
 import Router from "@/router/index.js";
 
 export async function login(username, password) {

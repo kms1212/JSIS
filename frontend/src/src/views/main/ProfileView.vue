@@ -53,7 +53,7 @@ export default {
     simplifyTimestamp(timestamp) {
       return getSimplifiedTimestamp(timestamp);
     },
-  }
+  },
 };
 </script>
 

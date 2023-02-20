@@ -30,7 +30,7 @@ export default {
     simplifyTimestamp(timestamp) {
       return getSimplifiedTimestamp(timestamp);
     },
-  }
+  },
 };
 </script>
 
@@ -49,12 +49,13 @@ export default {
         ></RouterLink>
       </div>
       <ul class="overflow-scroll divide-y divide-gray-200" v-if="replies">
-        <li class="p-3 w-full flex flex-row" v-for="reply in replies" :key="reply">
+        <li
+          class="p-3 w-full flex flex-row"
+          v-for="reply in replies"
+          :key="reply"
+        >
           <div class="flex flex-row flex-grow space-x-2">
-            <ProfileImageComp
-              :userid="reply.author"
-              class="w-10 h-10 mt-2"
-            />
+            <ProfileImageComp :userid="reply.author" class="w-10 h-10 mt-2" />
             <div>
               <span class="text-sm space-y-1">
                 {{ reply.author.visiblename }} @{{ reply.author.username }}
@@ -63,7 +64,7 @@ export default {
                   class="h-3 w-3 text-green-500"
                 ></vue-feather>
               </span>
-              <br/>
+              <br />
               <p>
                 {{ reply.text }}
               </p>
@@ -74,14 +75,8 @@ export default {
           </div>
           <div class="flex flex-col items-end justify-between space-x-1 mt-2">
             <div class="space-x-1">
-              <vue-feather
-                type="flag"
-                class="h-5 w-5"
-              ></vue-feather>
-              <vue-feather
-                type="thumbs-up"
-                class="h-5 w-5"
-              ></vue-feather>
+              <vue-feather type="flag" class="h-5 w-5"></vue-feather>
+              <vue-feather type="thumbs-up" class="h-5 w-5"></vue-feather>
             </div>
             <span class="text-sm text-gray-500">
               {{ simplifyTimestamp(reply.created) }}

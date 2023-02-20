@@ -1,9 +1,6 @@
 import axios from "axios";
-import { defineStore } from "pinia";
-import { useStorage } from "@vueuse/core";
 import { removeToken, removeProfile } from "@/scripts/api/auth.js";
 import Router from "@/router/index.js";
-import { useCookies } from '@vueuse/integrations/useCookies'
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_DOMAIN,
