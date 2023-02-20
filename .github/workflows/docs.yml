@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy HTTP API Document
 
 on:
   # Runs on pushes targeting the default branch
@@ -36,7 +36,7 @@ jobs:
         uses: ammaraskar/sphinx-action@0.4
         with:
           docs-folder: backend/src/docs/
-          pre-build-command: pip install django myst-parser sphinx_design sphinx-rtd-theme
+          pre-build-command: pip install -r requirements.txt backend/requirements.txt backend/src/docs/requirements.txt
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
