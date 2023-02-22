@@ -18,6 +18,9 @@ export default {
   mounted() {
     const getProfileImage = async (id) => {
       const profile = await getProfile(id);
+      if (!profile.profileimage) {
+        return null;
+      }
       const file = await getFile(profile.profileimage);
       const dataurl = await readFileAsDataURL(file);
       return dataurl;

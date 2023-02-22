@@ -28,4 +28,4 @@ coverage
 *.sw?
 
 # dotenv environment variables file
-.env
+.env.production
